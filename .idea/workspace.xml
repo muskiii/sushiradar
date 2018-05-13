@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="489fb899-5a6f-4b9e-be8b-741cd04d9aa9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/Forecast.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/model/Forecast.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/ForecastService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/utils/HttpHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sushiradar.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sushiradar.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/Forecast.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,11 +29,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Forecast.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/Forecast.java">
+      <file leaf-file-name="ForecastService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/ForecastService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-105">
-              <caret line="11" column="38" lean-forward="true" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+            <state relative-caret-position="120">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Forecast.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/model/Forecast.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/utils/HttpHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,7 +76,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/Application.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
@@ -107,8 +132,11 @@
         <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/dao/DatabaseConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/utils/IniHelper.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/Forecast.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/Application.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/utils/HttpHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/Forecast.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/ForecastService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/model/Forecast.java" />
       </list>
     </option>
   </component>
@@ -165,16 +193,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="sushiradar" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sushiradar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sushiradar" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="sushiradar" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sushiradar" type="b2602c69:ProjectViewProjectNode" />
@@ -290,11 +308,11 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.328594" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.328594" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24942264" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24942264" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" />
@@ -357,13 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/Forecast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-105">
-          <caret line="11" column="38" lean-forward="true" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -371,6 +382,33 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/utils/HttpHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/service/ForecastService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/fabiano/sushiradar/api/model/Forecast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
         </state>
       </provider>
     </entry>

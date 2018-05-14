@@ -13,12 +13,13 @@ public class DatabaseConnection {
 
     private DatabaseConnection() throws SQLException {
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            this.connection = DriverManager.getConnection(
-                    SRConfiguration.getConfiguration().get("url"),
-                    SRConfiguration.getConfiguration().get("userName"),
-                    SRConfiguration.getConfiguration().get("password"));
+        	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        	String url = SRConfiguration.getConfiguration().get("databse_url") + ";databaseName=" + SRConfiguration.getConfiguration().get("database_name");
+            this.connection = DriverManager.getConnection(url,
+            		SRConfiguration.getConfiguration().get("database_user"),
+            		SRConfiguration.getConfiguration().get("database_password"));
         } catch (ClassNotFoundException e) {
+        	e.printStackTrace();
             System.out.println("Database Connection Creation Failed : " + e.getMessage());
         }
     }

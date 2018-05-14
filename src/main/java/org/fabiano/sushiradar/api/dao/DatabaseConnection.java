@@ -15,7 +15,9 @@ public class DatabaseConnection {
         try {
         	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         	String url = SRConfiguration.getConfiguration().get("databse_url") + ";databaseName=" + SRConfiguration.getConfiguration().get("database_name");
-            this.connection = DriverManager.getConnection(url,
+           System.out.print("connecting to:");
+           System.out.println(url);
+        	this.connection = DriverManager.getConnection(url,
             		SRConfiguration.getConfiguration().get("database_user"),
             		SRConfiguration.getConfiguration().get("database_password"));
         } catch (ClassNotFoundException e) {

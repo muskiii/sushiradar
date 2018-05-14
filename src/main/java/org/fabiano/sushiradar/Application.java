@@ -8,21 +8,17 @@ import org.fabiano.sushiradar.api.dao.DatabaseConnection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-//@SpringBootApplication
+@SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-//    	 ApplicationContext ctx = SpringApplication.run(Application.class, args);
-         
-    	
-        System.out.println(SRConfiguration.getConfiguration().get("databse_url")+";databaseName="+ SRConfiguration.getConfiguration().get("database_name"));
-        try {
-			DatabaseConnection.getInstance().getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	 ApplicationContext ctx = SpringApplication.run(Application.class, args);
+//         try {
+//			DatabaseConnection.getInstance().getConnection();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
         ForecastController forecastService = new ForecastController();
 //        new ForecastController().getForecast("buenos_aires","Argentina");
-
+        System.out.println(new ForecastController().saveForecast(null));
     }
 }

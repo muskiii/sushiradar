@@ -1,0 +1,17 @@
+﻿Esto es lo que tengo hasta ahora :
+la app es para ver el pronostico del climaen el momento, o poder pedir el extendido. guardar dias data del dia.
+Mostrar data de estos dias.
+|se llama sushi radar
+optiene la data de https://www.wunderground.com
+implementa el patron observer para cambiar de temperatura (f y c) y cambiar imagenes representativas , y mas importante dar un estimado de que tan buena es la pesca en ese momento
+singleton para la conexion y otro para la confguracion.
+factory para agregar lugares 
+facade para abstraer
+composition en vez de herencia 
+Percist: preferencias(temp), paises, provincias.
+Archivo ini para la conexion
+
+Clase configuration al cargarse lee toda las entradas de ini, y crea un mapa cpn cada entrada, y posee solamente el metodo “getConfigFor(String s)” que devuelve la conf segun la clave 
+
+Decorator: el componente principal es forecast, la interface es componenRateable de este implemente decorator y de extiende ForecastFilter el cual contiene el estado del filtro selecionado y implementa el metodo caclulateFishingRate 
+“Estos filtros se tiene que guardar en la base segund usuario”

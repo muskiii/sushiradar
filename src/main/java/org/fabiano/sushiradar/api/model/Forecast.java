@@ -1,6 +1,14 @@
 package org.fabiano.sushiradar.api.model;
 
-public class Forecast {
+import java.io.IOException;
+
+import org.fabiano.sushiradar.api.utils.JsonParseable;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Forecast{
 
     private String country;
     private String city;
@@ -20,8 +28,36 @@ public class Forecast {
     private String humidity;
     private String pressure;
     private String elevation;
+    
+    
+    
 
-    public String getCountry() {
+    public Forecast(String country, String city, String latitude, String longitude, String fullName, float tempInC,
+			float tempInF, float windKph, float windDegrees, String precip, String weather, String feelsLike,
+			String icon_url, String windDir, String windDescription, String humidity, String pressure,
+			String elevation) {
+		super();
+		this.country = country;
+		this.city = city;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.fullName = fullName;
+		this.tempInC = tempInC;
+		this.tempInF = tempInF;
+		this.windKph = windKph;
+		this.windDegrees = windDegrees;
+		this.precip = precip;
+		this.weather = weather;
+		this.feelsLike = feelsLike;
+		this.icon_url = icon_url;
+		this.windDir = windDir;
+		this.windDescription = windDescription;
+		this.humidity = humidity;
+		this.pressure = pressure;
+		this.elevation = elevation;
+	}
+
+	public String getCountry() {
         return country;
     }
 
@@ -164,4 +200,10 @@ public class Forecast {
     public void setElevation(String elevation) {
         this.elevation = elevation;
     }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
 }

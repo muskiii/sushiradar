@@ -28,7 +28,7 @@ public class ForecastController {
 //				+ city + ".json";
 //		System.out.println(url);
 //		JSONObject jsonObject = HttpHelper.get(url);
-        System.out.println(forecastService.fromJson(jsonObject.toString()));
+//        System.out.println(forecastService.fromJson(jsonObject.toString()));
 
 		return jsonObject.toString();
 	}

@@ -1,6 +1,7 @@
 package org.fabiano.sushiradar.api.model;
 
 import org.fabiano.sushiradar.api.utils.Ignore;
+import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class Forecast {
     private String latitude;
     private String longitude;
 
-    @Ignore
+    @OneToNRealtion(foreingKey="fk_forecast", clazz=FCDay.class)
     private List<FCDay> extended;
 
     public Forecast(String country, String city, String latitude, String longitude, List<FCDay> extended) {

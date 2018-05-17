@@ -2,7 +2,10 @@ package org.fabiano.sushiradar.api.dao;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -17,41 +20,62 @@ public class DAO<T> {
 
 	public void insert(T t) {
 		String insertStatement = "INSERT INTO  [sushi_radar_db].[dbo].[" + t.getClass().getSimpleName().toLowerCase() + "]"
-				+ " (" + SQLHelper.getColumns(t.getClass()) + ") " + "VALUES ( \'"
-				+ SQLHelper.getValues(t.getClass(),t) + "\');";
+				+ " (" + SQLHelper.getColumns(t.getClass()) + ") " + "VALUES ( "
+				+ SQLHelper.getValues(t.getClass(),t) + ");";
 		System.out.println(insertStatement);
-		
+		Long id = null;
 		try {
 			Connection con = DatabaseConnection.getInstance().getConnection();
 			con.setAutoCommit(false);
+			PreparedStatement statement = con.prepareStatement(insertStatement,
+                 Statement.RETURN_GENERATED_KEYS);
 			
-//			con.createStatement().executeUpdate(insertStatement);
-			
-			List<Field> fs = Arrays.stream(t.getClass().getFields()).filter(f->f.getAnnotation(OneToNRealtion.class)!= null).collect(Collectors.toList());
+			int affectedRows = statement.executeUpdate();
+
+	        if (affectedRows == 0) {
+	            throw new SQLException("Creating user failed, no rows affected.");
+	        }
+
+	        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	            	id = generatedKeys.getLong(1);
+	            }
+	            else {
+	                throw new SQLException("Creating user failed, no ID obtained.");
+	            }
+	        }
+	        String insertChildStatement = null;
+			List<Field> fs = Arrays.stream(t.getClass().getDeclaredFields())
+					.filter(f->f.isAnnotationPresent(OneToNRealtion.class))
+					.collect(Collectors.toList());
 			if (fs.size()>0) {
 				for (Field field: fs) {
-				Class clazz = field.getClass().getAnnotation(OneToNRealtion.class).clazz();
-				
+				Class<?> clazz = field.getDeclaredAnnotation(OneToNRealtion.class).clazz();				
 				List<Object> typedList = null;
+				field.setAccessible(true);
+				
 				try {
 					typedList = (List<Object>) field.get(t);
 				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				for (Object f2 : typedList) {
-					String insertChildStatement = "INSERT INTO  [sushi_radar_db].[dbo].[" + clazz.getSimpleName().toLowerCase() + "]"
-							+ " (" + SQLHelper.getColumns(clazz) + ") " + "VALUES ( \'"
-							+ SQLHelper.getValues(clazz,typedList) + "\');";
+				
+				for (Object object : typedList) {					
+					insertChildStatement = "INSERT INTO  [sushi_radar_db].[dbo].[" + clazz.getSimpleName().toLowerCase() + "]"
+							+ " (" + SQLHelper.getChildColumns(clazz,field.getDeclaredAnnotation(OneToNRealtion.class).foreingKey()) + ") " + "VALUES ( "
+							+ SQLHelper.getChildValues(clazz, object, id) + ");";
 					System.out.println(insertChildStatement);
+					PreparedStatement statementChild = con.prepareStatement(insertChildStatement,
+			                 Statement.RETURN_GENERATED_KEYS);
+					statementChild.executeUpdate();
 					}
 				}
 				
 			}
-//			con.close();
+			con.commit();
+			con.close();			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

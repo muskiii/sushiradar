@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+</head>
+
+<body>
+<label>country</label><input id="country">
+<label>city</label><input id="city">
+<button id="btnGet">A ver si explota</button>
+<button id="btnSend">A ver si explota</button>
+<p id="forecast">mmm...</p>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btnGet").click(function(){	   
+	   $.ajax({
+		   type: 'GET',
+		   url: '/forecast?city='+ encodeURIComponent($('#city').val()) +'&country='+ $('#country').val(),
+		   error: function() {
+		      $('#forecast').html('ERROR');
+		   },	  
+		   success: function(data) {
+		      var forecast = JSON.stringify(data);
+		      $("#forecast").text(forecast);
+		   }  
+	   });
+	});
+	$("#btnSend").click(function(){
+		$.ajax({
+		   type: 'POST',
+		   url: '/forecast',
+		   data: $('#forecast').text(),
+		   contentType: 'application/json',
+		    success: function(data){
+              $("#forecast").text(OK);
+            },
+            error: function() {
+		      $('#forecast').text('ERROR');
+		   }
+		});	
+	});	
+});
+</script>
+
+</body>
+
+</html>

@@ -37,7 +37,7 @@
                         $('#forecast').html('ERROR');
                     },
                     success: function (data) {
-                        if (!data.hasOwnProperty('error')) {
+                        if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
                             $("#forecast-data").text(JSON.stringify(data));
                             $("#forecast").text("ok");
                         } else {
@@ -50,22 +50,26 @@
             }
         });
         $("#btnSend").click(function () {
-            if ($("#forecast-data").val() == "" || $("#forecast-data").val() == "ERROR") {
-            let data = JSON.parse($('#forecast-data').text());     
-            data.target = 'something';
-                   
-                $.ajax({
-                    type: 'POST',
-                    url: '/forecast',
-                    data:  JSON.stringify(data),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        $("#forecast").text("OK");
-                    },
-                    error: function () {
-                        $('#forecast').text('ERROR');
-                    }
-                });
+            if ($("#forecast-data").text() != "" && $("#forecast-data").text() != "ERROR") {
+	            if ($("#forecast-data").text().indexOf("results") == -1){
+		            let data = JSON.parse($('#forecast-data').text());     
+		            data.target = 'something';
+		                   
+	                $.ajax({
+	                    type: 'POST',
+	                    url: '/forecast',
+	                    data:  JSON.stringify(data),
+	                    contentType: 'application/json',
+	                    success: function (data) {
+	                        $("#forecast").text("OK");
+	                    },
+	                    error: function () {
+	                        $('#forecast').text('ERROR');
+	                    }
+	                });
+	            }else{
+	           		$("#forecast").text("ERROR");
+	            }
             }
         });
 

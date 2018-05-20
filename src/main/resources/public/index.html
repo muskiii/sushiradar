@@ -11,7 +11,7 @@
 <body>
 
 <label>Buscador</label>
-<input  id="buscador" type="text" placeholder="argen">
+<input id="buscador" type="text" placeholder="argen">
 
 <input id="city" type="hidden">
 <input id="country" type="hidden">
@@ -32,44 +32,44 @@
             if (city != "" || country != "") {
                 $.ajax({
                     type: 'GET',
-                    url: '/forecast?city=' + city + '&country=' + country,
+                    url: '/4daysforecast?city=' + city + '&country=' + country,
                     error: function () {
                         $('#forecast').html('ERROR');
                     },
                     success: function (data) {
                         if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
                             $("#forecast-data").text(JSON.stringify(data));
-                            $("#forecast").text("ok");
+                            $("#forecast").text("Received");
                         } else {
                             $('#forecast').text('Nothing Here');
                         }
                     }
                 });
             } else {
-                $("#forecast").text("empty fields");
+                $("#forecast").text("empty field");
             }
         });
         $("#btnSend").click(function () {
             if ($("#forecast-data").text() != "" && $("#forecast-data").text() != "ERROR") {
-	            if ($("#forecast-data").text().indexOf("results") == -1){
-		            let data = JSON.parse($('#forecast-data').text());     
-		            data.target = 'something';
-		                   
-	                $.ajax({
-	                    type: 'POST',
-	                    url: '/forecast',
-	                    data:  JSON.stringify(data),
-	                    contentType: 'application/json',
-	                    success: function (data) {
-	                        $("#forecast").text("OK");
-	                    },
-	                    error: function () {
-	                        $('#forecast').text('ERROR');
-	                    }
-	                });
-	            }else{
-	           		$("#forecast").text("ERROR");
-	            }
+                if ($("#forecast-data").text().indexOf("results") == -1) {
+                    let data = JSON.parse($('#forecast-data').text());
+                    data.target = 'something';
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/forecast',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            $("#forecast").text("OK");
+                        },
+                        error: function () {
+                            $('#forecast').text('ERROR');
+                        }
+                    });
+                } else {
+                    $("#forecast").text("ERROR");
+                }
             }
         });
 
@@ -80,8 +80,10 @@
             source: addressPicker.ttAdapter()
         });
         addressPicker.bindDefaultTypeaheadEvent($('#buscador'))
-        $(addressPicker).on('addresspicker:selected', function (event, result) { displayResults(result, $('#response'))})
-        $(addressPicker).on('addresspicker:predictions', function(event, result) {
+        $(addressPicker).on('addresspicker:selected', function (event, result) {
+            displayResults(result, $('#response'))
+        })
+        $(addressPicker).on('addresspicker:predictions', function (event, result) {
             if (result && result.length > 0)
                 $('#buscador').removeClass("empty")
             else
@@ -89,12 +91,12 @@
         })
 
         function displayResults(result, div) {
-            result.addressTypes().forEach(function(type) {
-                if (type == "country"){
-                    $("#country").text(result.nameForType(type).replace(/ /g,"_"));
+            result.addressTypes().forEach(function (type) {
+                if (type == "country") {
+                    $("#country").text(result.nameForType(type).replace(/ /g, "_"));
                 }
-                if (type == "political"){
-                    $("#city").text(result.nameForType(type).replace(/ /g,"_"));
+                if (type == "political") {
+                    $("#city").text(result.nameForType(type).replace(/ /g, "_"));
                 }
 
             })
@@ -102,14 +104,14 @@
             html.push("Latitude: " + result.lat())
             html.push("Longitude: " + result.lng())
             html.push("Long names:")
-            result.addressTypes().forEach(function(type) {
+            result.addressTypes().forEach(function (type) {
                 html.push("  " + type + ": " + result.nameForType(type))
             })
             html.push("Short names:")
-            result.addressTypes().forEach(function(type) {
+            result.addressTypes().forEach(function (type) {
                 html.push("  " + type + ": " + result.nameForType(type, true))
             })
-            div.html( html.join('\n'));
+            div.html(html.join('\n'));
         }
     });
 </script>

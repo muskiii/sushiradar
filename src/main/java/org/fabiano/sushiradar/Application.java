@@ -16,5 +16,6 @@ public class Application extends WebMvcAutoConfiguration {
 //        System.out.println(fc.getForecast("buenos_aires","Argentina"));
 //        System.out.println(new ForecastService().fromJson(fc.getForecast("buenos_aires","Argentina")));
 //        fc.saveForecast(fc.getForecast("buenos_aires","Argentina"));
+        System.out.println(new  ForecastService().getById("2"));
         }
 }

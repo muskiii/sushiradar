@@ -17,6 +17,13 @@ import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 import org.fabiano.sushiradar.api.utils.SQLHelper;
 
 public class DAO<T> {
+	
+	private final Class<T> type;
+
+	public DAO(Class<T> type) {
+		super();
+		this.type = type;
+	}
 
 	public void insert(T t) {
 		String insertStatement = "INSERT INTO  [sushi_radar_db].[dbo].[" + t.getClass().getSimpleName().toLowerCase() + "]"
@@ -80,4 +87,38 @@ public class DAO<T> {
 			e.printStackTrace();
 		}
 	}
+
+	public List<T> findAll() {
+        String selectTableSQL = "SELECT * from " + type.getSimpleName().toLowerCase();
+        Connection con = null;
+        List<T> entities = null;
+        try {
+            con = DatabaseConnection.getInstance().getConnection();
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            entities = new SQLHelper<T>().mapRersultSetToList(rs, type);
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entities;
+    }
+	
+	public T findById(String id) {
+		String selectTableSQL = "SELECT * from " + type.getSimpleName().toLowerCase() + " where id = " + id;
+        Connection con = null;
+        T entities = null;
+        try {
+            con = DatabaseConnection.getInstance().getConnection();
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            entities = new SQLHelper<T>().mapRersultSetToObject(rs, type);
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entities;
+		
+	}
+
 }

@@ -1,10 +1,17 @@
 package org.fabiano.sushiradar.api.model.filter;
 
+import org.fabiano.sushiradar.api.model.Column;
 import org.fabiano.sushiradar.api.model.ComponentRateable;
 
 public class TempFilter extends ForecastFilter {
 
+	 @Column(name="fk_forecast")
+	 private int forecastID; 
+	 
+	 @Column(name="maxTempC")
 	 private float maxTempC;
+	 
+	 @Column(name="minTempC")
 	 private float minTempC;
 
     public TempFilter(ComponentRateable componentRateable) {

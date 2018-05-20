@@ -8,7 +8,7 @@ GO
 
 CREATE TABLE [dbo].[fcday](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[fk_forecast] [int] Not null,
+	[fk_forecast] [int] NOT null,
 	[day][int] NULL,
     [month][int] NULL,
     [year] [int] NULL,
@@ -49,5 +49,21 @@ CREATE TABLE [dbo].[forecast](
 	[city] [varchar](255) NULL,
 	[latitude] [varchar](255) NULL,
 	[longitude] [varchar](255) NULL)
+	
+	USE [sushi_radar_db]
+GO
+
+DROP TABLE [dbo].[tempfilter]
+GO
+
+CREATE TABLE [dbo].[tempfilter](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[fk_forecast][int] NOT NULL,
+	[maxTempC] [float] NULL,
+	[minTempC] [float] NULL)
+
+	
+	alter table tempfilter add constraint pk_tempfilter primary key (pk_tempfilter)
+	alter table tempfilter add constraint fk_forecast_tempfilter foreign key (fk_forecast) references forecast (id)
 
 

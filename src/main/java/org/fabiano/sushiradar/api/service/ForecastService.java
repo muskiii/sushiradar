@@ -4,12 +4,24 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import java.util.List;
+
 import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.model.FCDay;
 import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
 
 public class ForecastService implements JsonParseable<Forecast> {
+	
+	DAO<Forecast> dao;
+	
+	
+
+	public ForecastService() {
+		super();
+		this.dao = new DAO<Forecast>(Forecast.class);
+	}
 
 	@Override
 	public Forecast fromJson(String json) {
@@ -59,6 +71,14 @@ public class ForecastService implements JsonParseable<Forecast> {
 	}
 
 	public void save(Forecast f) {
-		new DAO<>().insert(f);
+		dao.insert(f);
+	}
+	
+	public List<Forecast> getAll(){
+		return dao.findAll();
+	}
+	
+	public Forecast getById(String id) {
+		return dao.findById(id);
 	}
 }

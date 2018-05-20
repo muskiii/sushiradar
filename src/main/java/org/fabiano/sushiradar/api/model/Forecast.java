@@ -1,26 +1,39 @@
 package org.fabiano.sushiradar.api.model;
 
-import org.fabiano.sushiradar.api.utils.Ignore;
+
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Forecast {
+	
+	@Column(name="id")
+	private String id;
 
+	@Column(name="target")
 	private String target;
+	
+	@Column(name="country")
     private String country;
+	
+	@Column(name="city")
     private String city;
+	
+	@Column(name="latitude")
     private String latitude;
+	
+	@Column(name="longitude")
     private String longitude;
 
     @OneToNRealtion(foreingKey="fk_forecast", clazz=FCDay.class)
     private List<FCDay> extended;
 
-    
-    public Forecast(String target, String country, String city, String latitude, String longitude,
+	public Forecast(String id, String target, String country, String city, String latitude, String longitude,
 			List<FCDay> extended) {
 		super();
+		this.id = id;
 		this.target = target;
 		this.country = country;
 		this.city = city;
@@ -32,8 +45,16 @@ public class Forecast {
 	public Forecast(){
         this.extended = new ArrayList<>();
     }
+	
+    public String getId() {
+		return id;
+	}
 
-    public String getCountry() {
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCountry() {
         return country;
     }
 
@@ -72,8 +93,6 @@ public class Forecast {
     public void setExtended(List<FCDay> extended) {
         this.extended = extended;
     }
-    
-    
 
     public String getTarget() {
 		return target;
@@ -84,14 +103,9 @@ public class Forecast {
 	}
 
 	@Override
-    public String toString() {
-        return "Forecast{" +
-                "country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", target='" + target + '\'' +
-                ", extended=" + extended +
-                '}';
-    }
+	public String toString() {
+		return "Forecast [id=" + id + ", target=" + target + ", country=" + country + ", city=" + city + ", latitude="
+				+ latitude + ", longitude=" + longitude + ", extended=" + extended + "]";
+	}
+
 }

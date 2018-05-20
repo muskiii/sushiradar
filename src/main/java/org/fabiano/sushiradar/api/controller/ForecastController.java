@@ -5,6 +5,7 @@ import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.factory.ForecastFactory;
 import org.fabiano.sushiradar.api.service.ForecastService;
 import org.fabiano.sushiradar.api.utils.HttpHelper;
+import org.fabiano.sushiradar.api.utils.WunderGroundClient;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,7 @@ public class ForecastController {
 	@ResponseBody
 	public String getForecast(@RequestParam(name = "city", required = true) String city,
 			@RequestParam(name = "country", required = true) String country) {
-		String url = "http://api.wunderground.com/api/2f0a571de3193464/geolookup/conditions/forecast/q/" + country + "/"
-				+ city + ".json";
-		System.out.println(url);
-		JSONObject jsonObject = HttpHelper.get(url);
-			return jsonObject.toString();
+		return WunderGroundClient.get4DayForecast(country, city);
 	}
 	
 	@RequestMapping(value = "/forecast", method = RequestMethod.POST, produces = "application/json")

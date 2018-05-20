@@ -7,7 +7,6 @@ public abstract class ForecastFilter extends Decorator {
 
     private String name;
 
-
     public ForecastFilter(ComponentRateable componentRateable) {
         super(componentRateable);
     }

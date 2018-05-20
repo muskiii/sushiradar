@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Forecast {
 
+	private String target;
     private String country;
     private String city;
     private String latitude;
@@ -16,14 +17,19 @@ public class Forecast {
     @OneToNRealtion(foreingKey="fk_forecast", clazz=FCDay.class)
     private List<FCDay> extended;
 
-    public Forecast(String country, String city, String latitude, String longitude, List<FCDay> extended) {
-        this.country = country;
-        this.city = city;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.extended = extended;
-    }
-    public Forecast(){
+    
+    public Forecast(String target, String country, String city, String latitude, String longitude,
+			List<FCDay> extended) {
+		super();
+		this.target = target;
+		this.country = country;
+		this.city = city;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.extended = extended;
+	}
+
+	public Forecast(){
         this.extended = new ArrayList<>();
     }
 
@@ -66,14 +72,25 @@ public class Forecast {
     public void setExtended(List<FCDay> extended) {
         this.extended = extended;
     }
+    
+    
 
-    @Override
+    public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	@Override
     public String toString() {
         return "Forecast{" +
                 "country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
+                ", target='" + target + '\'' +
                 ", extended=" + extended +
                 '}';
     }

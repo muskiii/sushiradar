@@ -8,7 +8,6 @@ import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.model.FCDay;
 import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
-import org.fabiano.sushiradar.api.factory.ForecastFactory;
 
 public class ForecastService implements JsonParseable<Forecast> {
 
@@ -26,6 +25,7 @@ public class ForecastService implements JsonParseable<Forecast> {
 		f.setCountry(location.get("country_name").getAsString());
 		f.setLatitude(location.get("lat").getAsString());
 		f.setLongitude(location.get("lon").getAsString());
+		f.setTarget(response.getAsJsonObject().get("target").getAsString());
 
 		for (JsonElement jsonArrayDay: forecastday) {
 			JsonObject jsonDay = jsonArrayDay.getAsJsonObject();
@@ -49,10 +49,10 @@ public class ForecastService implements JsonParseable<Forecast> {
 
 			fcDay.setConditions(jsonDay.get("conditions").getAsString());
 			fcDay.setAveHumidity(jsonDay.get("avehumidity").getAsFloat());
-			fcDay.setPrecipAllDay(jsonDay.getAsJsonObject("qpf_day").get("mm").getAsString());
+			fcDay.setPrecipAllDay(jsonDay.getAsJsonObject("qpf_day").get("mm").isJsonNull() ? "0" :jsonDay.getAsJsonObject("qpf_day").get("mm").getAsString());
 			fcDay.setAveWindDir(jsonDay.getAsJsonObject("avewind").get("dir").getAsString());
 			fcDay.setAveWindHPH(jsonDay.getAsJsonObject("avewind").get("kph").getAsFloat());
-			fcDay.setAveWinddegrees(jsonDay.getAsJsonObject("avewind").get("degrees").getAsFloat());
+			fcDay.setAveWindDegrees(jsonDay.getAsJsonObject("avewind").get("degrees").getAsFloat());
 			f.getExtended().add(fcDay);
 		}
 		return f;

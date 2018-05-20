@@ -39,9 +39,12 @@ CREATE TABLE [dbo].[fcday](
 USE [sushi_radar_db]
 GO
 
+DROP TABLE [dbo].[forecast]
+GO
 
 CREATE TABLE [dbo].[forecast](
 	[id] [int] IDENTITY(1,1) NOT NULL,
+	[target][varchar](255) NULL,
 	[country] [varchar](255) NULL,
 	[city] [varchar](255) NULL,
 	[latitude] [varchar](255) NULL,

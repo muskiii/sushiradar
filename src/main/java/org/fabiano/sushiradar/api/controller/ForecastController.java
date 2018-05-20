@@ -39,6 +39,6 @@ public class ForecastController {
 	    Forecast f = forecastService.fromJson(body);
         forecastService.save(f);
 		return new ResponseEntity<>(f, HttpStatus.OK);
-	}
+	}	
 	
 }

@@ -10,7 +10,8 @@ import java.util.List;
 public class Forecast {
 	
 	@Column(name="id")
-	private String id;
+	@Id
+	private int id;
 
 	@Column(name="target")
 	private String target;
@@ -30,7 +31,7 @@ public class Forecast {
     @OneToNRealtion(foreingKey="fk_forecast", clazz=FCDay.class)
     private List<FCDay> extended;
 
-	public Forecast(String id, String target, String country, String city, String latitude, String longitude,
+	public Forecast(int id, String target, String country, String city, String latitude, String longitude,
 			List<FCDay> extended) {
 		super();
 		this.id = id;
@@ -46,11 +47,11 @@ public class Forecast {
         this.extended = new ArrayList<>();
     }
 	
-    public String getId() {
+    public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

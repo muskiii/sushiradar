@@ -1,37 +1,88 @@
 package org.fabiano.sushiradar.api.model;
 
+@Entity
 public class FCDay implements ComponentRateable  {
 
+	@Column(name="id")
+	@Id
+	private int id;
+	
+	@Column(name="fk_forecast")
+	@FK(name="fk_forecast")
+	private int forecastID;
+	
+	@Column(name="day")
     public int day;
+	
+	@Column(name="month")
     public int month;
+	
+	@Column(name="year")
     public int year;
+	
+	@Column(name="yday")
     public int yday;
+	
+	@Column(name="hour")
     public int hour;
-    public String monthname;
+	
+	@Column(name="monthName")
+    public String monthName;
+		
+	@Column(name="weekday")
     public String weekday;
+	
+	@Column(name="ampm")
     public String ampm;
+	
+	@Column(name="tzShort")
     public String tzShort;
+	
+	@Column(name="tzLong")
     public String tzLong;
-
+	
+	@Column(name="highT")
     private float highT;
+	
+	@Column(name="lowT")
     private float lowT;
-
+	
+	@Column(name="aveWindHPH")
     private float aveWindHPH;
+	
+	@Column(name="aveWindDir")
     private String aveWindDir;
+	
+	@Column(name="aveWindDegrees")
     private float aveWindDegrees;
-
+	
+	
+	@Column(name="precipAllDay")
     private String precipAllDay;
+	
+	@Column(name="aveHumidity")
     private float aveHumidity;
 
+	
+	@Column(name="conditions")
     private String conditions;
 
+	@Column(name="iconURL")
     private String iconURL;
 
 
     public FCDay() {
     }
+    
+    public int getForecastID() {
+		return forecastID;
+	}
 
-    public int getDay() {
+	public void setForecastID(int forecastID) {
+		this.forecastID = forecastID;
+	}
+
+	public int getDay() {
         return day;
     }
 
@@ -71,12 +122,12 @@ public class FCDay implements ComponentRateable  {
         this.hour = hour;
     }
 
-    public String getMonthname() {
-        return monthname;
+    public String getmonthName() {
+        return monthName;
     }
 
-    public void setMonthname(String monthname) {
-        this.monthname = monthname;
+    public void setmonthName(String monthName) {
+        this.monthName = monthName;
     }
 
     public String getWeekday() {
@@ -191,7 +242,7 @@ public class FCDay implements ComponentRateable  {
                 ", year=" + year +
                 ", yday=" + yday +
                 ", hour=" + hour +
-                ", monthname='" + monthname + '\'' +
+                ", monthName='" + monthName + '\'' +
                 ", weekday='" + weekday + '\'' +
                 ", ampm='" + ampm + '\'' +
                 ", tzShort='" + tzShort + '\'' +

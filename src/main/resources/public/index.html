@@ -16,8 +16,9 @@
 <input id="city" type="hidden">
 <input id="country" type="hidden">
 
-<button id="btnGet">buscar</button>
+<button id="btnSearch">buscar</button>
 <button id="btnSend">guardar</button>
+<button id="btnGet">Refresh</button>
 
 <p id="forecast">mmm...</p>
 
@@ -26,7 +27,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#btnGet").click(function () {
+        $("#btnSearch").click(function () {
             let city = encodeURIComponent($('#city').text());
             let country = encodeURIComponent($('#country').text());
             if (city != "" || country != "") {
@@ -70,6 +71,29 @@
                 } else {
                     $("#forecast").text("ERROR");
                 }
+            }
+        });
+        $("#btnGet").click(function () {
+            let city = encodeURIComponent($('#city').text());
+            let country = encodeURIComponent($('#country').text());
+            if (city != "" || country != "") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/4daysforecast?city=' + city + '&country=' + country,
+                    error: function () {
+                        $('#forecast').html('ERROR');
+                    },
+                    success: function (data) {
+                        if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
+                            $("#forecast-data").text(JSON.stringify(data));
+                            $("#forecast").text("Received");
+                        } else {
+                            $('#forecast').text('Nothing Here');
+                        }
+                    }
+                });
+            } else {
+                $("#forecast").text("empty field");
             }
         });
 

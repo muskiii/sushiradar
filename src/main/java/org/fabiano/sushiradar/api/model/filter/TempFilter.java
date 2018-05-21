@@ -2,10 +2,12 @@ package org.fabiano.sushiradar.api.model.filter;
 
 import org.fabiano.sushiradar.api.model.Column;
 import org.fabiano.sushiradar.api.model.ComponentRateable;
+import org.fabiano.sushiradar.api.model.FK;
 
 public class TempFilter extends ForecastFilter {
 
 	@Column(name="fk_forecast")
+	@FK(name="fk_forecast")
 	 private int forecastID;  	 
 	
 	 @Column(name="maxTempC")

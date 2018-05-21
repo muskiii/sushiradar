@@ -1,5 +1,7 @@
 package org.fabiano.sushiradar.api.controller;
 
+import java.util.List;
+
 import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.factory.ForecastFactory;
@@ -25,9 +27,9 @@ public class ForecastController {
 
 	@RequestMapping(value = "/forecast", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String getForecast(@RequestParam(name = "city", required = true) String city,
-			@RequestParam(name = "country", required = true) String country) {
-		return WunderGroundClient.get4DayForecast(country, city);
+	public ResponseEntity<List<Forecast>> getForecast() {
+		List<Forecast> fs = forecastService.getAll();
+		return new ResponseEntity<>(fs, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/forecast", method = RequestMethod.POST, produces = "application/json")	

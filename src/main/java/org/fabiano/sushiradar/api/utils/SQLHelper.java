@@ -19,8 +19,13 @@ public final class SQLHelper<T> {
 	public static String getColumns(Class clazz) {
 		return Arrays.stream(clazz.getDeclaredFields())
 				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class))
-				.map(f -> f.getName()).collect(Collectors.joining(","));
-	}
+				.map(f -> {
+				if(f.isAnnotationPresent(Column.class)) {
+					return f.getDeclaredAnnotation(Column.class).name();
+				}
+					return f.getName();
+				}).collect(Collectors.joining(","));
+	}	
 
 	public static String getValues(Class clazz, Object object) {
 		return Arrays.stream(clazz.getDeclaredFields())

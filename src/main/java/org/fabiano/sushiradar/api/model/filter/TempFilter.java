@@ -5,9 +5,9 @@ import org.fabiano.sushiradar.api.model.ComponentRateable;
 
 public class TempFilter extends ForecastFilter {
 
-	 @Column(name="fk_forecast")
-	 private int forecastID; 
-	 
+	@Column(name="fk_forecast")
+	 private int forecastID;  	 
+	
 	 @Column(name="maxTempC")
 	 private float maxTempC;
 	 
@@ -18,31 +18,29 @@ public class TempFilter extends ForecastFilter {
         super(componentRateable);
     }
     
-    
-
-    public float getMaxTempC() {
-		return maxTempC;
+    public int getForecastID() {
+		return forecastID;
 	}
 
+	public void setForecastID(int forecastID) {
+		this.forecastID = forecastID;
+	}
 
+	public float getMaxTempC() {
+		return maxTempC;
+	}
 
 	public void setMaxTempC(float maxTempC) {
 		this.maxTempC = maxTempC;
 	}
 
-
-
 	public float getMinTempC() {
 		return minTempC;
 	}
 
-
-
 	public void setMinTempC(float minTempC) {
 		this.minTempC = minTempC;
 	}
-
-
 
 	@Override
     public float calculateFishingRate() {

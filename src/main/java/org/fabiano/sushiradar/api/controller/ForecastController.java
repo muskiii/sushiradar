@@ -30,8 +30,7 @@ public class ForecastController {
 		return WunderGroundClient.get4DayForecast(country, city);
 	}
 	
-	@RequestMapping(value = "/forecast", method = RequestMethod.POST, produces = "application/json")
-	
+	@RequestMapping(value = "/forecast", method = RequestMethod.POST, produces = "application/json")	
 	public ResponseEntity<Forecast> saveForecast(@RequestBody String body) {
 	    Forecast f = forecastService.fromJson(body);
         forecastService.save(f);

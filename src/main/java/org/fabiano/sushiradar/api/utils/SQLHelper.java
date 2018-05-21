@@ -13,12 +13,13 @@ import java.util.stream.Collectors;
 import org.apache.commons.beanutils.BeanUtils;
 import org.fabiano.sushiradar.api.model.Column;
 import org.fabiano.sushiradar.api.model.Entity;
+import org.fabiano.sushiradar.api.model.Id;
 
 public final class SQLHelper<T> {
 
 	public static String getColumns(Class clazz) {
 		return Arrays.stream(clazz.getDeclaredFields())
-				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class))
+				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class)  && !f.isAnnotationPresent(Id.class))
 				.map(f -> {
 				if(f.isAnnotationPresent(Column.class)) {
 					return f.getDeclaredAnnotation(Column.class).name();
@@ -29,7 +30,7 @@ public final class SQLHelper<T> {
 
 	public static String getValues(Class clazz, Object object) {
 		return Arrays.stream(clazz.getDeclaredFields())
-				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class))
+				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class) && !f.isAnnotationPresent(Id.class))
 				.map(f -> {
 					try {
 						f.setAccessible(true);
@@ -49,14 +50,20 @@ public final class SQLHelper<T> {
 
 	public static String getChildColumns(Class clazz, String fk) {
 		String s = Arrays.stream(clazz.getDeclaredFields())
-				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class))
-				.map(f -> f.getName()).collect(Collectors.joining(","));
-		return s += "," + fk;
+				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class) && !f.isAnnotationPresent(Id.class))
+				.map(f -> {
+					if(f.isAnnotationPresent(Column.class)) {
+						return f.getDeclaredAnnotation(Column.class).name();
+					}
+						return f.getName();
+					}).collect(Collectors.joining(","));
+		return s;
+//		return s += "," + fk;
 	}
 
 	public static String getChildValues(Class clazz, Object object, long fk) {
 		String s = Arrays.stream(clazz.getDeclaredFields())
-				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class))
+				.filter(f -> !f.isAnnotationPresent(Ignore.class) && !f.isAnnotationPresent(OneToNRealtion.class) && !f.isAnnotationPresent(Id.class))
 				.map(f -> {
 					try {
 						f.setAccessible(true);
@@ -72,7 +79,8 @@ public final class SQLHelper<T> {
 						return "";
 					}
 				}).collect(Collectors.joining(","));
-		return s += "," + fk;
+//		return s += "," + fk;
+		return s;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -19,6 +19,8 @@ import org.fabiano.sushiradar.api.model.Id;
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 import org.fabiano.sushiradar.api.utils.SQLHelper;
 
+import static java.lang.Math.toIntExact;
+
 public class DAO<T> {
 
 	private final Class<T> type;
@@ -48,10 +50,22 @@ public class DAO<T> {
 			try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					id = generatedKeys.getLong(1);
+//					Field Idfield = Arrays.stream(t.getClass().getDeclaredFields())
+//							.filter(f -> f.isAnnotationPresent(Id.class)).findAny().get();
+//					Idfield.setAccessible(true);
+//					Idfield.set(t,id);
 				} else {
 					throw new SQLException("Creating user failed, no ID obtained.");
 				}
-			}
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+//				catch (IllegalAccessException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			statement.close();
 			String insertChildStatement = null;
 			List<Field> fs = Arrays.stream(t.getClass().getDeclaredFields())
 					.filter(f -> f.isAnnotationPresent(OneToNRealtion.class)).collect(Collectors.toList());
@@ -70,6 +84,11 @@ public class DAO<T> {
 					}
 
 					for (Object object : typedList) {
+						Field fkField = Arrays.stream(object.getClass().getDeclaredFields())
+								.filter(f -> f.isAnnotationPresent(FK.class)).findAny().get();
+						fkField.setAccessible(true);
+						fkField.set(object,toIntExact(id));
+						
 						insertChildStatement = "INSERT INTO  [sushi_radar_db].[dbo].["
 								+ clazz.getSimpleName().toLowerCase() + "]" + " ("
 								+ SQLHelper.getChildColumns(clazz,
@@ -86,6 +105,12 @@ public class DAO<T> {
 			con.commit();
 			con.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

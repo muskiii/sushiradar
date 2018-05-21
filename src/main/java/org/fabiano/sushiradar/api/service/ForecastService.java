@@ -46,7 +46,7 @@ public class ForecastService implements JsonParseable<Forecast> {
 			fcDay.setDay(jsonDate.get("day").getAsInt());
 			fcDay.setWeekday(jsonDate.get("weekday").getAsString());
 			fcDay.setMonth(jsonDate.get("month").getAsInt());
-			fcDay.setmonthName(jsonDate.get("monthName").getAsString());
+			fcDay.setmonthName(jsonDate.get("monthname").getAsString());
 			fcDay.setYear(jsonDate.get("year").getAsInt());
 			fcDay.setYday(jsonDate.get("yday").getAsInt());
 			fcDay.setHour(jsonDate.get("hour").getAsInt());

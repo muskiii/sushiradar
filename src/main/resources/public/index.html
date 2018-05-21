@@ -40,7 +40,7 @@
                     success: function (data) {
                         if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
                             $("#forecast-data").text(JSON.stringify(data));
-                            $("#forecast").text("Received");
+                            $("#forecast").text("Founded");
                         } else {
                             $('#forecast').text('Nothing Here');
                         }
@@ -62,7 +62,7 @@
                         data: JSON.stringify(data),
                         contentType: 'application/json',
                         success: function (data) {
-                            $("#forecast").text("OK");
+                            $("#forecast").text("Sended");
                         },
                         error: function () {
                             $('#forecast').text('ERROR');
@@ -79,18 +79,19 @@
             if (city != "" || country != "") {
                 $.ajax({
                     type: 'GET',
-                    url: '/4daysforecast?city=' + city + '&country=' + country,
+                    url: '/forecast' ,
                     error: function () {
                         $('#forecast').html('ERROR');
                     },
-                    success: function (data) {
-                        if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
-                            $("#forecast-data").text(JSON.stringify(data));
+                    success: function (data, textStatus, xhr) {
+                        if (xhr.status === 200) {
+                            $('#response').text(JSON.stringify(data));
                             $("#forecast").text("Received");
                         } else {
                             $('#forecast').text('Nothing Here');
                         }
                     }
+                    
                 });
             } else {
                 $("#forecast").text("empty field");

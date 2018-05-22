@@ -1,29 +1,86 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title of the document</title>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="https://cdnjs.clou	dflare.com/ajax/libs/typeahead.js/0.10.4/dist/typeahead.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead-addresspicker/0.1.4/typeahead-addresspicker.min.js"></script>
+    <title>Sushi Radar</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Fabiano Jose Maria"></meta>
+    <!--Css-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href="Css/Personal.css" rel="stylesheet" type="text/css" media="all"/>
 </head>
+
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-menu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img alt="Brand" src="Images/LogoFZ.png" id="al"></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="collapse-menu">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Home <span class="sr-only">(current)</span></a></li>
 
-<label>Buscador</label>
-<input id="buscador" type="text" placeholder="argen">
+                </li>
+            </ul>
+            <div class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input id="buscador" type="text" class="form-control" placeholder="city">
+                </div>
+                <button id="btnSearch" class="btn btn-default disabled">Search</button>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a id="availability"><span class="sr-only">(current)</span></a></li>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container"id="wrapper">
+<div>
 
-<input id="city" type="hidden">
-<input id="country" type="hidden">
+    <input id="city" type="hidden">
+    <input id="country" type="hidden">
 
-<button id="btnSearch">buscar</button>
-<button id="btnSend">guardar</button>
-<button id="btnGet">Refresh</button>
+    <button id="btnSend" class="btn btn-default disabled">Suscribir</button>
+    <button id="btnGet" class="btn btn-default">Refresh</button>
+    <button id="btnDel" class="btn btn-danger">DELETE ALL</button>
 
-<p id="forecast">mmm...</p>
+    <p id="forecast"></p>
 
-<pre class="response" id="response"></pre>
-<input id="forecast-data" type="hidden">
+    <pre class="response" id="response"></pre>
+    <input id="forecast-data" type="hidden">
+
+</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Email me at josemariafabiano@gmail.com</p>
+    </div>
+</footer>
+
+<!--js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="https://cdnjs.clou	dflare.com/ajax/libs/typeahead.js/0.10.4/dist/typeahead.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead-addresspicker/0.1.4/typeahead-addresspicker.min.js"></script>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -40,9 +97,11 @@
                     success: function (data) {
                         if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
                             $("#forecast-data").text(JSON.stringify(data));
-                            $("#forecast").text("Founded");
+                            $("#availability").text("available");
+                            $("#btnSend").removeClass("disabled");
                         } else {
-                            $('#forecast').text('Nothing Here');
+                            $("#availability").text('Not available');
+                            $("#btnSend").addClass("disabled");
                         }
                     }
                 });
@@ -63,6 +122,8 @@
                         contentType: 'application/json',
                         success: function (data) {
                             $("#forecast").text("Sended");
+                            $("#forecast-data").text("");
+                            $('#response').text("");
                         },
                         error: function () {
                             $('#forecast').text('ERROR');
@@ -71,31 +132,46 @@
                 } else {
                     $("#forecast").text("ERROR");
                 }
+                $("#forecast").text("ERROR");
             }
         });
         $("#btnGet").click(function () {
-            let city = encodeURIComponent($('#city').text());
-            let country = encodeURIComponent($('#country').text());
-            if (city != "" || country != "") {
-                $.ajax({
-                    type: 'GET',
-                    url: '/forecast' ,
-                    error: function () {
-                        $('#forecast').html('ERROR');
-                    },
-                    success: function (data, textStatus, xhr) {
-                        if (xhr.status === 200) {
-                            $('#response').text(JSON.stringify(data));
-                            $("#forecast").text("Received");
-                        } else {
-                            $('#forecast').text('Nothing Here');
-                        }
+            $.ajax({
+                type: 'GET',
+                url: '/forecast',
+                error: function () {
+                    $('#forecast').html('ERROR');
+                },
+                success: function (data, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        $('#response').text(JSON.stringify(data, null, 2));
+                        $("#forecast").text("Received");
+                    } else {
+                        $('#forecast').text('Nothing Here');
                     }
-                    
-                });
-            } else {
-                $("#forecast").text("empty field");
-            }
+                }
+
+            });
+
+        });
+        $("#btnDel").click(function () {
+            $.ajax({
+                type: 'DELETE',
+                url: '/forecast',
+                error: function () {
+                    $('#forecast').html('ERROR');
+                },
+                success: function (data, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        $('#response').text("");
+                        $("#forecast").text("Delete");
+                    } else {
+                        $('#forecast').text('');
+                    }
+                }
+
+            });
+
         });
 
         var addressPicker = new AddressPicker();
@@ -125,6 +201,8 @@
                 }
 
             })
+            $("#btnSearch").removeClass("disabled");
+            
             html = ["Address: " + result.address()]
             html.push("Latitude: " + result.lat())
             html.push("Longitude: " + result.lng())

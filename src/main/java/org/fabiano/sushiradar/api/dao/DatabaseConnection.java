@@ -11,7 +11,7 @@ public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
 
-    private DatabaseConnection() throws SQLException {
+    private DatabaseConnection(){
         try {
         	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         	String url = SRConfiguration.getConfiguration().get("databse_url") + ";databaseName=" + SRConfiguration.getConfiguration().get("database_name");
@@ -23,14 +23,17 @@ public class DatabaseConnection {
         } catch (ClassNotFoundException e) {
         	e.printStackTrace();
             System.out.println("Database Connection Creation Failed : " + e.getMessage());
-        }
+        } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public Connection getConnection() {
         return connection;
     }
 
-    public static DatabaseConnection getInstance() throws SQLException {
+    public static synchronized DatabaseConnection getInstance() throws SQLException {
         if (instance == null) {
             instance = new DatabaseConnection();
         } else if (instance.getConnection().isClosed()) {

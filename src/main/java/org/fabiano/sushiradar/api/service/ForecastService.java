@@ -81,4 +81,8 @@ public class ForecastService implements JsonParseable<Forecast> {
 	public Forecast getById(String id) {
 		return dao.findById(id);
 	}
+	
+	public void deleteAll() {
+		dao.deleteAll();
+	}
 }

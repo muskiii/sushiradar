@@ -39,4 +39,9 @@ public class ForecastController {
 		return new ResponseEntity<>(f, HttpStatus.OK);
 	}	
 	
+	@RequestMapping(value = "/forecast", method = RequestMethod.DELETE)	
+	public ResponseEntity<Forecast> deleteAllForecast() {
+        forecastService.deleteAll();
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
 }

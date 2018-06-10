@@ -1,5 +1,10 @@
 package org.fabiano.sushiradar.api.model;
 
+import org.fabiano.sushiradar.api.utils.Column;
+import org.fabiano.sushiradar.api.utils.Entity;
+import org.fabiano.sushiradar.api.utils.FK;
+import org.fabiano.sushiradar.api.utils.Id;
+
 @Entity
 public class FCDay implements ComponentRateable  {
 

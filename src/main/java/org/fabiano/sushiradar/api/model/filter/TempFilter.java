@@ -1,8 +1,8 @@
 package org.fabiano.sushiradar.api.model.filter;
 
-import org.fabiano.sushiradar.api.model.Column;
 import org.fabiano.sushiradar.api.model.ComponentRateable;
-import org.fabiano.sushiradar.api.model.FK;
+import org.fabiano.sushiradar.api.utils.Column;
+import org.fabiano.sushiradar.api.utils.FK;
 
 public class TempFilter extends ForecastFilter {
 

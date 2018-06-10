@@ -8,7 +8,12 @@
     <meta name="Fabiano Jose Maria"></meta>
     <!--Css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    
     <link href="Css/Personal.css" rel="stylesheet" type="text/css" media="all"/>
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="Js/Personal.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -35,32 +40,120 @@
                 <div class="form-group">
                     <input id="buscador" type="text" class="form-control" placeholder="city">
                 </div>
-                <button id="btnSearch" class="btn btn-default disabled">Search</button>
+                <button id="btnSearch" class="btn btn-default disabled">Check Availability</button>
             </div>
             <ul class="nav navbar-nav">
                 <li>
                     <a id="availability"><span class="sr-only">(current)</span></a></li>
                 </li>
             </ul>
-        </div><!-- /.navbar-collapse -->
+            <div class="navbar-form navbar-left" style="margin-left: 0px;">
+                <button id="btnSend" class="btn btn-default disabled">Suscribir</button>
+                <button id="btnGet" class="btn btn-default">Refresh</button>
+                <button id="btnDel" class="btn btn-danger">DELETE ALL</button>
+            </div>
+        </div>
+
+    </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<div class="container"id="wrapper">
-<div>
+<div class="container" id="wrapper">
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-3">
+            <div class="input-group number-spinner">
+				<span class="input-group-btn data-dwn">
+					<button class="btn btn-default btn-info" data-dir="dwn"><span
+                            class="glyphicon glyphicon-minus"></span></button>
+				</span>
+                <input type="text" class="form-control text-center" value="1" min="-10" max="40">
+                <span class="input-group-btn data-up">
+					<button class="btn btn-default btn-info" data-dir="up"><span
+                            class="glyphicon glyphicon-plus"></span></button>
+				</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input id="city" type="hidden">
+        <input id="country" type="hidden">
+        <p id="forecast"></p>
+        <pre class="response" id="response"></pre>
+        <input id="forecast-data" type="hidden">
+    </div>
 
-    <input id="city" type="hidden">
-    <input id="country" type="hidden">
+    <section id="filtros">
 
-    <button id="btnSend" class="btn btn-default disabled">Suscribir</button>
-    <button id="btnGet" class="btn btn-default">Refresh</button>
-    <button id="btnDel" class="btn btn-danger">DELETE ALL</button>
+        <h2>FILTROS</h2>
 
-    <p id="forecast"></p>
+        <label class="lab" for="pais">PAIS</label><br>
+        <select id="pais" name="pais">
+            <option value="australia">Argentina</option>
+            <option value="canada">Uruguay</option>
+            <option value="usa">Chile</option>
+        </select>
 
-    <pre class="response" id="response"></pre>
-    <input id="forecast-data" type="hidden">
+        <br>
+        <label class="lab" for="provincia">PROVINCIA</label><br>
+        <select id="provincia" name="provincia">
+            <option value="bsas">Buenos Aires</option>
+            <option value="ushu">Ushuaia</option>
+            <option value="cord">Cordoba</option>
+        </select>
+        <input type="checkbox" checked data-toggle="toggle">
+    </section>
 
-</div>
+    <section id="filtros2">
+        <label class="lab" for="temperatura">TEMPERATURA</label><br>
+        <input type="number" name="quantity" placeholder="min" min="-10" max="50">
+        <input type="number" name="quantity" placeholder="max" : min="-10" max="50">
+
+        <br>
+        <br>
+
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+        </label>
+
+    </section>
+
+    <section id="filtros3">
+        <label class="lab" for="lluvia">LLUVIA</label>
+        <br>
+
+        <label class="container">Si
+            <input type="radio" checked="checked" name="radio">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">No
+            <input type="radio" name="radio">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="lab" for="humedad">HUMEDAD</label><br><br>
+        <input type="number" name="quantity" placeholder="min%" min="1" max="100">
+        <input type="number" name="quantity" placeholder="max%" : min="-1" max="100">
+
+    </section>
+
+    <section id="filtros4">
+        <label class="lab" for="viento">DIRECCION DEL VIENTO</label><br>
+        <select id="viento" name="viento">
+            <option value="nordeste">NE</option>
+            <option value="sudeste">SE</option>
+            <option value="sudoeste">SW</option>
+            <option value="nordeste">NW</option>
+        </select>
+
+        <br>
+        <br>
+
+        <label class="lab" for="velviento">VELOCIDAD DEL VIENTO</label><br><br>
+        <input type="number" name="quantity" placeholder="min" min="1" max="100">
+        <input type="number" name="quantity" placeholder="max" : min="-1" max="100">
+    </section>
+
+
 </div>
 
 <footer class="footer">
@@ -77,146 +170,9 @@
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="https://cdnjs.clou	dflare.com/ajax/libs/typeahead.js/0.10.4/dist/typeahead.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead-addresspicker/0.1.4/typeahead-addresspicker.min.js"></script>
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#btnSearch").click(function () {
-            let city = encodeURIComponent($('#city').text());
-            let country = encodeURIComponent($('#country').text());
-            if (city != "" || country != "") {
-                $.ajax({
-                    type: 'GET',
-                    url: '/4daysforecast?city=' + city + '&country=' + country,
-                    error: function () {
-                        $('#forecast').html('ERROR');
-                    },
-                    success: function (data) {
-                        if (!data.response.hasOwnProperty('error') && !data.response.hasOwnProperty('results')) {
-                            $("#forecast-data").text(JSON.stringify(data));
-                            $("#availability").text("available");
-                            $("#btnSend").removeClass("disabled");
-                        } else {
-                            $("#availability").text('Not available');
-                            $("#btnSend").addClass("disabled");
-                        }
-                    }
-                });
-            } else {
-                $("#forecast").text("empty field");
-            }
-        });
-        $("#btnSend").click(function () {
-            if ($("#forecast-data").text() != "" && $("#forecast-data").text() != "ERROR") {
-                if ($("#forecast-data").text().indexOf("results") == -1) {
-                    let data = JSON.parse($('#forecast-data').text());
-                    data.target = 'something';
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/forecast',
-                        data: JSON.stringify(data),
-                        contentType: 'application/json',
-                        success: function (data) {
-                            $("#forecast").text("Sended");
-                            $("#forecast-data").text("");
-                            $('#response').text("");
-                        },
-                        error: function () {
-                            $('#forecast').text('ERROR');
-                        }
-                    });
-                } else {
-                    $("#forecast").text("ERROR");
-                }
-                $("#forecast").text("ERROR");
-            }
-        });
-        $("#btnGet").click(function () {
-            $.ajax({
-                type: 'GET',
-                url: '/forecast',
-                error: function () {
-                    $('#forecast').html('ERROR');
-                },
-                success: function (data, textStatus, xhr) {
-                    if (xhr.status === 200) {
-                        $('#response').text(JSON.stringify(data, null, 2));
-                        $("#forecast").text("Received");
-                    } else {
-                        $('#forecast').text('Nothing Here');
-                    }
-                }
-
-            });
-
-        });
-        $("#btnDel").click(function () {
-            $.ajax({
-                type: 'DELETE',
-                url: '/forecast',
-                error: function () {
-                    $('#forecast').html('ERROR');
-                },
-                success: function (data, textStatus, xhr) {
-                    if (xhr.status === 200) {
-                        $('#response').text("");
-                        $("#forecast").text("Delete");
-                    } else {
-                        $('#forecast').text('');
-                    }
-                }
-
-            });
-
-        });
-
-        var addressPicker = new AddressPicker();
-
-        $('#buscador').typeahead(null, {
-            displayKey: 'description',
-            source: addressPicker.ttAdapter()
-        });
-        addressPicker.bindDefaultTypeaheadEvent($('#buscador'))
-        $(addressPicker).on('addresspicker:selected', function (event, result) {
-            displayResults(result, $('#response'))
-        })
-        $(addressPicker).on('addresspicker:predictions', function (event, result) {
-            if (result && result.length > 0)
-                $('#buscador').removeClass("empty")
-            else
-                $('#buscador').addClass("empty")
-        })
-
-        function displayResults(result, div) {
-            result.addressTypes().forEach(function (type) {
-                if (type == "country") {
-                    $("#country").text(result.nameForType(type).replace(/ /g, "_"));
-                }
-                if (type == "political") {
-                    $("#city").text(result.nameForType(type).replace(/ /g, "_"));
-                }
-
-            })
-            $("#btnSearch").removeClass("disabled");
-            
-            html = ["Address: " + result.address()]
-            html.push("Latitude: " + result.lat())
-            html.push("Longitude: " + result.lng())
-            html.push("Long names:")
-            result.addressTypes().forEach(function (type) {
-                html.push("  " + type + ": " + result.nameForType(type))
-            })
-            html.push("Short names:")
-            result.addressTypes().forEach(function (type) {
-                html.push("  " + type + ": " + result.nameForType(type, true))
-            })
-            div.html(html.join('\n'));
-        }
-    });
-</script>
 </body>
 </html>

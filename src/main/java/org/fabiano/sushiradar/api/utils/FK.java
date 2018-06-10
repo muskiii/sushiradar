@@ -1,9 +1,9 @@
-package org.fabiano.sushiradar.api.model;
+package org.fabiano.sushiradar.api.utils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Entity {
-
+public @interface FK {
+	String name();
 }

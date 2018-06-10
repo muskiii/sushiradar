@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.fabiano.sushiradar.api.model.Column;
-import org.fabiano.sushiradar.api.model.Entity;
-import org.fabiano.sushiradar.api.model.Id;
 
 public final class SQLHelper<T> {
 

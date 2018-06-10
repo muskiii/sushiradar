@@ -1,6 +1,9 @@
 package org.fabiano.sushiradar.api.model;
 
 
+import org.fabiano.sushiradar.api.utils.Column;
+import org.fabiano.sushiradar.api.utils.Entity;
+import org.fabiano.sushiradar.api.utils.Id;
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 
 import java.util.ArrayList;

@@ -2,18 +2,24 @@ package org.fabiano.sushiradar.api.service;
 
 import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.factory.ForecastFilterFactory;
-import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.model.filter.ForecastFilter;
 import org.fabiano.sushiradar.api.model.filter.TempFilter;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
+import org.fabiano.sushiradar.api.utils.PersistStrategy;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 
+	
+	private DAO<ForecastFilter> dao;		
+
+	public ForecastFilterService(PersistStrategy<ForecastFilter> strategy) {
+		super();
+		this.dao = new DAO<ForecastFilter>(ForecastFilter.class, strategy);
+	}
+	
 	@Override
 	public ForecastFilter fromJson(String json) {
 		JsonObject response  = new JsonParser().parse(json).getAsJsonObject();
@@ -35,7 +41,7 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 	public void save(ForecastFilter f) {
 		if (f instanceof TempFilter) {
 			TempFilter tempFilter = (TempFilter) f;
-			new DAO<TempFilter>(TempFilter.class).insert(tempFilter);
+			dao.insert(tempFilter);
 		}
 	}
 }

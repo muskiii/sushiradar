@@ -52,8 +52,8 @@ public class FCDay implements ComponentRateable  {
 	@Column(name="lowT")
     private float lowT;
 	
-	@Column(name="aveWindHPH")
-    private float aveWindHPH;
+	@Column(name="aveWindkPH")
+    private float aveWindKPH;
 	
 	@Column(name="aveWindDir")
     private String aveWindDir;
@@ -183,12 +183,12 @@ public class FCDay implements ComponentRateable  {
         this.lowT = lowT;
     }
 
-    public float getAveWindHPH() {
-        return aveWindHPH;
+    public float getAveWindKPH() {
+        return aveWindKPH;
     }
 
-    public void setAveWindHPH(float aveWindHPH) {
-        this.aveWindHPH = aveWindHPH;
+    public void setAveWindKPH(float aveWindKPH) {
+        this.aveWindKPH = aveWindKPH;
     }
 
     public String getAveWindDir() {
@@ -254,7 +254,7 @@ public class FCDay implements ComponentRateable  {
                 ", tzLong='" + tzLong + '\'' +
                 ", highT=" + highT +
                 ", lowT=" + lowT +
-                ", aveWindHPH=" + aveWindHPH +
+                ", aveWindKPH=" + aveWindKPH +
                 ", aveWindDir='" + aveWindDir + '\'' +
                 ", aveWindDegrees=" + aveWindDegrees +
                 ", precipAllDay='" + precipAllDay + '\'' +

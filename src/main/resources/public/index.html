@@ -1,65 +1,125 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Sushi Radar</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Fabiano Jose Maria"></meta>
-    <!--Css-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    
-    <link href="Css/Personal.css" rel="stylesheet" type="text/css" media="all"/>
-    
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="Js/Personal.js" type="text/javascript"></script>
+<title>Sushi Radar</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Fabiano Jose Maria"></meta>
+<!--Css-->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+
+<link href="Css/Personal.css" rel="stylesheet" type="text/css"
+	media="all" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="Js/Personal.js" type="text/javascript"></script>
 </head>
 
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-menu">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><img alt="Brand" src="Images/LogoFZ.png" id="al"></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="collapse-menu">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Home <span class="sr-only">(current)</span></a></li>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#collapse-menu">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img alt="Brand"
+					src="Images/LogoFZ.png" id="al"></a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="collapse-menu">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Home <span class="sr-only">(current)</span></a></li>
 
-                </li>
-            </ul>
-            <div class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input id="buscador" type="text" class="form-control" placeholder="city">
-                </div>
-                <button id="btnSearch" class="btn btn-default disabled">Check Availability</button>
-            </div>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a id="availability"><span class="sr-only">(current)</span></a></li>
-                </li>
-            </ul>
-            <div class="navbar-form navbar-left" style="margin-left: 0px;">
-                <button id="btnSend" class="btn btn-default disabled">Suscribir</button>
-                <button id="btnGet" class="btn btn-default">Refresh</button>
-                <button id="btnDel" class="btn btn-danger">DELETE ALL</button>
-            </div>
-        </div>
+					</li>
+				</ul>
+				<div class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input id="buscador" type="text" class="form-control"
+							placeholder="city">
+					</div>
+					<button id="btnSearch" class="btn btn-default disabled">Check
+						Availability</button>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a id="availability"><span class="sr-only">(current)</span></a></li>
+					</li>
+				</ul>
+				<div class="navbar-form navbar-left" style="margin-left: 0px;">
+					<button id="btnSend" class="btn btn-default disabled">Suscribir</button>
+					<button id="btnGet" class="btn btn-default">Refresh</button>
+					<button id="btnDel" class="btn btn-danger">DELETE ALL</button>
+				</div>
+			</div>
 
-    </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<div class="container" id="wrapper">
-    <div class="row">
-        <div class="col-xs-3 col-xs-offset-3">
+		</div>
+		<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container-fluid" id="wrapper">
+		<div class="row">
+		<div class="col-md-3"></div>
+			<div class="col-md-3 ">				
+					<h2>FILTROS</h2>
+				<section id="filtros2">
+					<label class="lab" for="temperatura">TEMPERATURA</label><br> <input
+						type="number" name="quantity" placeholder="min" min="-10" max="50">
+					<input type="number" name="quantity" placeholder="max" : min="-10"
+						max="50"> <br> <br> <label class="switch">
+						<input type="checkbox" checked> <span class="slider round"></span>
+					</label>
+
+				</section>
+
+				<section id="filtros3">
+					<label class="lab" for="lluvia">LLUVIA</label> <br> <label
+						class="container">Si <input type="radio" checked="checked"
+						name="radio"> <span class="checkmark"></span>
+					</label> <label class="container">No <input type="radio"
+						name="radio"> <span class="checkmark"></span>
+					</label> <label class="lab" for="humedad">HUMEDAD</label><br>
+					<br> <input type="number" name="quantity" placeholder="min%"
+						min="1" max="100"> <input type="number" name="quantity"
+						placeholder="max%" : min="-1" max="100">
+
+				</section>
+
+				<section id="filtros4">
+					<label class="lab" for="viento">DIRECCION DEL VIENTO</label><br>
+					<select id="viento" name="viento">
+						<option value="nordeste">NE</option>
+						<option value="sudeste">SE</option>
+						<option value="sudoeste">SW</option>
+						<option value="nordeste">NW</option>
+					</select> <br> <br> <label class="lab" for="velviento">VELOCIDAD
+						DEL VIENTO</label><br>
+					<br> <input type="number" name="quantity" placeholder="min"
+						min="1" max="100"> <input type="number" name="quantity"
+						placeholder="max" : min="-1" max="100">
+				</section>
+
+			</div>
+			<div class="col-md-6">
+				<div>
+					<input id="city" type="hidden"> <input id="country"
+						type="hidden">
+					<p id="forecast"></p>
+					<pre class="response" id="response"></pre>
+					<input id="forecast-data" type="hidden">
+				</div>
+			</div>
+			
+			<!-- <div class="col-xs-3 col-xs-offset-3">
             <div class="input-group number-spinner">
 				<span class="input-group-btn data-dwn">
 					<button class="btn btn-default btn-info" data-dir="dwn"><span
@@ -71,108 +131,33 @@
                             class="glyphicon glyphicon-plus"></span></button>
 				</span>
             </div>
-        </div>
-    </div>
-    <div>
-        <input id="city" type="hidden">
-        <input id="country" type="hidden">
-        <p id="forecast"></p>
-        <pre class="response" id="response"></pre>
-        <input id="forecast-data" type="hidden">
-    </div>
+        </div> -->
+		</div>
+	</div>
 
-    <section id="filtros">
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Email me at josemariafabiano@gmail.com</p>
+		</div>
+	</footer>
 
-        <h2>FILTROS</h2>
-
-        <label class="lab" for="pais">PAIS</label><br>
-        <select id="pais" name="pais">
-            <option value="australia">Argentina</option>
-            <option value="canada">Uruguay</option>
-            <option value="usa">Chile</option>
-        </select>
-
-        <br>
-        <label class="lab" for="provincia">PROVINCIA</label><br>
-        <select id="provincia" name="provincia">
-            <option value="bsas">Buenos Aires</option>
-            <option value="ushu">Ushuaia</option>
-            <option value="cord">Cordoba</option>
-        </select>
-        <input type="checkbox" checked data-toggle="toggle">
-    </section>
-
-    <section id="filtros2">
-        <label class="lab" for="temperatura">TEMPERATURA</label><br>
-        <input type="number" name="quantity" placeholder="min" min="-10" max="50">
-        <input type="number" name="quantity" placeholder="max" : min="-10" max="50">
-
-        <br>
-        <br>
-
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
-        </label>
-
-    </section>
-
-    <section id="filtros3">
-        <label class="lab" for="lluvia">LLUVIA</label>
-        <br>
-
-        <label class="container">Si
-            <input type="radio" checked="checked" name="radio">
-            <span class="checkmark"></span>
-        </label>
-        <label class="container">No
-            <input type="radio" name="radio">
-            <span class="checkmark"></span>
-        </label>
-
-        <label class="lab" for="humedad">HUMEDAD</label><br><br>
-        <input type="number" name="quantity" placeholder="min%" min="1" max="100">
-        <input type="number" name="quantity" placeholder="max%" : min="-1" max="100">
-
-    </section>
-
-    <section id="filtros4">
-        <label class="lab" for="viento">DIRECCION DEL VIENTO</label><br>
-        <select id="viento" name="viento">
-            <option value="nordeste">NE</option>
-            <option value="sudeste">SE</option>
-            <option value="sudoeste">SW</option>
-            <option value="nordeste">NW</option>
-        </select>
-
-        <br>
-        <br>
-
-        <label class="lab" for="velviento">VELOCIDAD DEL VIENTO</label><br><br>
-        <input type="number" name="quantity" placeholder="min" min="1" max="100">
-        <input type="number" name="quantity" placeholder="max" : min="-1" max="100">
-    </section>
-
-
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted">Email me at josemariafabiano@gmail.com</p>
-    </div>
-</footer>
-
-<!--js-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-<script src="https://cdnjs.clou	dflare.com/ajax/libs/typeahead.js/0.10.4/dist/typeahead.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead-addresspicker/0.1.4/typeahead-addresspicker.min.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<!--js-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script
+		src="https://cdnjs.clou	dflare.com/ajax/libs/typeahead.js/0.10.4/dist/typeahead.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/typeahead-addresspicker/0.1.4/typeahead-addresspicker.min.js"></script>
+	<script
+		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </body>
 </html>

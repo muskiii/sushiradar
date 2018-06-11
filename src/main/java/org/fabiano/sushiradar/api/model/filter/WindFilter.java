@@ -4,21 +4,21 @@ import org.fabiano.sushiradar.api.model.ComponentRateable;
 
 public class WindFilter extends ForecastFilter {
 
-    private float aveWindHPH;
+    private float aveWindKPH;
     private String aveWindDir;
 
     public WindFilter(ComponentRateable componentRateable) {
         super(componentRateable);
     }
     
-    public float getAveWindHPH() {
-		return aveWindHPH;
+    public float getAveWindKPH() {
+		return aveWindKPH;
 	}
 
 
 
-	public void setAveWindHPH(float aveWindHPH) {
-		this.aveWindHPH = aveWindHPH;
+	public void setAveWindKPH(float aveWindKPH) {
+		this.aveWindKPH = aveWindKPH;
 	}
 
 

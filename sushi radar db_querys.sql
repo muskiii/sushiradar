@@ -21,7 +21,7 @@ CREATE TABLE [dbo].[fcday](
     [tzLong][varchar](255) NULL,
 	[highT][float]null,
 	[lowT][float]null,
-	[aveWindHPH][float]null,
+	[aveWindKPH][float]null,
 	[aveWindDir][varchar](255) NULL,
 	[aveWinddegrees][float]null,
 	[precipAllDay][varchar](255) NULL,

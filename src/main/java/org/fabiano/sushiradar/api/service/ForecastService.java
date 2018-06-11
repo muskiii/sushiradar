@@ -11,16 +11,15 @@ import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.model.FCDay;
 import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
+import org.fabiano.sushiradar.api.utils.PersistStrategy;
 
 public class ForecastService implements JsonParseable<Forecast> {
 	
-	DAO<Forecast> dao;
-	
-	
+	private DAO<Forecast> dao;		
 
-	public ForecastService() {
+	public ForecastService(PersistStrategy<Forecast> strategy) {
 		super();
-		this.dao = new DAO<Forecast>(Forecast.class);
+		this.dao = new DAO<Forecast>(Forecast.class, strategy);
 	}
 
 	@Override
@@ -63,7 +62,7 @@ public class ForecastService implements JsonParseable<Forecast> {
 			fcDay.setAveHumidity(jsonDay.get("avehumidity").getAsFloat());
 			fcDay.setPrecipAllDay(jsonDay.getAsJsonObject("qpf_day").get("mm").isJsonNull() ? "0" :jsonDay.getAsJsonObject("qpf_day").get("mm").getAsString());
 			fcDay.setAveWindDir(jsonDay.getAsJsonObject("avewind").get("dir").getAsString());
-			fcDay.setAveWindHPH(jsonDay.getAsJsonObject("avewind").get("kph").getAsFloat());
+			fcDay.setAveWindKPH(jsonDay.getAsJsonObject("avewind").get("kph").getAsFloat());
 			fcDay.setAveWindDegrees(jsonDay.getAsJsonObject("avewind").get("degrees").getAsFloat());
 			f.getExtended().add(fcDay);
 		}

@@ -11,13 +11,8 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.fabiano.sushiradar.api.service.ForecastService;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.fabiano.sushiradar.api.dao.DatabaseConnection;
@@ -153,7 +148,6 @@ public class OOPersistStrategy<T> extends PersistStrategy<T>{
 		JsonElement response  = new JsonParser().parse(mock);
 
 		String forecast = response.getAsJsonArray().get(0).getAsJsonObject().toString();
-//		return Arrays.asList( (T)new ForecastService((PersistStrategy<Forecast>)this).fromJson(forecast.getAsString()));
 		return Arrays.asList((T)gson.fromJson(forecast, Forecast.class));
 	}
 

@@ -29,7 +29,6 @@ import org.fabiano.sushiradar.api.utils.SQLHelper;
 		this.type = type;
 		this.strategy =  strategy;
 	}
-
 	
 	public void insert(T t) {
 		strategy.insert(t);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class FilterController {
 	
+	
 	ForecastFilterService forecastFilterService = new ForecastFilterService(
     		new PersistStrategyFactory<ForecastFilter>(ForecastFilter.class)
     		.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));

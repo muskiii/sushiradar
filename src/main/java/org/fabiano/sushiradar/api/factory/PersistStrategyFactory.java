@@ -1,8 +1,8 @@
 package org.fabiano.sushiradar.api.factory;
 
-import org.fabiano.sushiradar.api.utils.OOPersistStrategy;
-import org.fabiano.sushiradar.api.utils.PersistStrategy;
-import org.fabiano.sushiradar.api.utils.SQLPersisStrategy;
+import org.fabiano.sushiradar.api.dao.PostgrePersistStrategy;
+import org.fabiano.sushiradar.api.dao.PersistStrategy;
+import org.fabiano.sushiradar.api.dao.SQLPersisStrategy;
 
 public final class PersistStrategyFactory<T> {
 
@@ -17,7 +17,7 @@ public final class PersistStrategyFactory<T> {
 		case "SQL":
 			return new SQLPersisStrategy<T>(clazz);
 		case "OO":
-			return new OOPersistStrategy<T>(clazz);
+			return new PostgrePersistStrategy<T>(clazz);
 		default:
 			return null;
 		}		

@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import org.fabiano.sushiradar.api.utils.FK;
 import org.fabiano.sushiradar.api.utils.Id;
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
-import org.fabiano.sushiradar.api.utils.PersistStrategy;
 import org.fabiano.sushiradar.api.utils.SQLHelper;
 
 	public class DAO<T> {

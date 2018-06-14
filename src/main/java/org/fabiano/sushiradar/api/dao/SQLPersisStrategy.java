@@ -1,4 +1,4 @@
-package org.fabiano.sushiradar.api.utils;
+package org.fabiano.sushiradar.api.dao;
 
 import static java.lang.Math.toIntExact;
 
@@ -12,7 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.fabiano.sushiradar.api.dao.DatabaseConnection;
+import org.fabiano.sushiradar.api.utils.FK;
+import org.fabiano.sushiradar.api.utils.Id;
+import org.fabiano.sushiradar.api.utils.OneToNRealtion;
+import org.fabiano.sushiradar.api.utils.SQLHelper;
 
 public class SQLPersisStrategy<T> extends PersistStrategy<T>{
 
@@ -40,7 +43,7 @@ public class SQLPersisStrategy<T> extends PersistStrategy<T>{
 			int affectedRows = statement.executeUpdate();
 
 			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
+				throw new SQLException("no rows affected.");
 			}
 			
 			Long id = null;
@@ -48,7 +51,7 @@ public class SQLPersisStrategy<T> extends PersistStrategy<T>{
 				if (generatedKeys.next()) {
 					id = generatedKeys.getLong(1);
 				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
+					throw new SQLException("no ID obtained.");
 				}
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();

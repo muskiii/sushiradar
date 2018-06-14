@@ -1,4 +1,4 @@
-package org.fabiano.sushiradar.api.utils;
+package org.fabiano.sushiradar.api.dao;
 
 import java.util.List;
 

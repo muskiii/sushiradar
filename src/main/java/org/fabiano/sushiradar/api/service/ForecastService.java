@@ -8,10 +8,10 @@ import com.google.gson.JsonParser;
 import java.util.List;
 
 import org.fabiano.sushiradar.api.dao.DAO;
+import org.fabiano.sushiradar.api.dao.PersistStrategy;
 import org.fabiano.sushiradar.api.model.FCDay;
 import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
-import org.fabiano.sushiradar.api.utils.PersistStrategy;
 
 public class ForecastService implements JsonParseable<Forecast> {
 	

@@ -66,4 +66,49 @@ CREATE TABLE [dbo].[tempfilter](
 	alter table tempfilter add constraint pk_tempfilter primary key (pk_tempfilter)
 	alter table tempfilter add constraint fk_forecast_tempfilter foreign key (fk_forecast) references forecast (id)
 
+	
+	POSGRESQL
+	
+
+CREATE TABLE public.forecast(
+	id SERIAL PRIMARY KEY,
+	target varchar(40) NOT NULL,
+	country varchar(40) NOT NULL,
+	city varchar(40) NOT NULL,
+	latitude varchar(40) NOT NULL,
+	longitude varchar(40) NOT NULL
+    );
+	
+
+CREATE TABLE public.fcday(	
+	id SERIAL,
+	fk_forecast integer references forecast(id),
+	day integer  NULL,
+    month integer NULL,
+    year integer NULL,
+    yday integer NULL,
+    hour integer NULL,
+    monthname varchar(40) NULL,
+    weekday varchar(40) NULL,
+    ampm varchar(40) NULL,
+    tzShort varchar(40) NULL,
+    tzLong varchar(40) NULL,
+	highT real null,
+	lowT real null,
+	aveWindKPH integer null,
+	aveWindDir varchar(40) NULL,
+	aveWinddegrees real null,
+	precipAllDay varchar(40) NULL,
+	aveHumidity real null,
+	conditions varchar(40) NULL,
+	iconURL varchar(40) NULL);
+
+
+CREATE TABLE public.tempfilter (
+	id SERIAL,
+	fk_forecast integer references forecast(id),
+	maxTempC real null,
+	minTempC real null);
+/* Result : "Query OK, 0 rows affected (execution time: 171 ms; total time: 1.593 sec)" */
+
 

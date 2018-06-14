@@ -1,11 +1,11 @@
 package org.fabiano.sushiradar.api.service;
 
 import org.fabiano.sushiradar.api.dao.DAO;
+import org.fabiano.sushiradar.api.dao.PersistStrategy;
 import org.fabiano.sushiradar.api.factory.ForecastFilterFactory;
 import org.fabiano.sushiradar.api.model.filter.ForecastFilter;
 import org.fabiano.sushiradar.api.model.filter.TempFilter;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
-import org.fabiano.sushiradar.api.utils.PersistStrategy;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

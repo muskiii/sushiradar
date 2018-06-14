@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class PostgreDBStrategy extends DBStrategy{
 
 	@Override
-	public Connection getCon(Connection con) {
+	public Connection getCon() {
 		String username = "";
 		String password = "";
 		String dbUrl = "";

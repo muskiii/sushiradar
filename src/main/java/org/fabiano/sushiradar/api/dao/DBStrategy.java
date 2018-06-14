@@ -4,6 +4,6 @@ import java.sql.Connection;
 
 public abstract class DBStrategy {
 	
-	public abstract Connection  getCon(Connection con);
+	public abstract Connection getCon();
 
 }

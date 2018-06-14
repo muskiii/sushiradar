@@ -9,7 +9,7 @@ import org.fabiano.sushiradar.api.config.SRConfiguration;
 public class MSSQLDBStrategy extends DBStrategy{
 
 	@Override
-	public Connection getCon(Connection con) {
+	public Connection getCon() {
 		
 		try {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

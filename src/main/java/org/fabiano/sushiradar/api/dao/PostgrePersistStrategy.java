@@ -89,8 +89,8 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T>{
 						fkField.setAccessible(true);
 						fkField.set(object,toIntExact(id));
 						
-						insertChildStatement = "INSERT INTO  [sushi_radar_db].[dbo].["
-								+ clazz.getSimpleName().toLowerCase() + "]" + " ("
+						insertChildStatement = "INSERT INTO "
+								+ clazz.getSimpleName().toLowerCase() + " ("
 								+ SQLHelper.getChildColumns(clazz,
 										field.getDeclaredAnnotation(OneToNRealtion.class).foreingKey())
 								+ ") " + "VALUES ( " + SQLHelper.getChildValues(clazz, object, id) + ");";

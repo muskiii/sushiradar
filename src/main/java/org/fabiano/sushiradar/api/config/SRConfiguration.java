@@ -16,16 +16,16 @@ public final class SRConfiguration {
         if (srConfiguration == null){
             srConfiguration = new SRConfiguration();
             switch (System.getenv("database.engine")) {
-			case "OO":
-				srConfiguration.configuration = IniHelper.load("sushiradarOO.ini");
-				System.out.println("------>MONGO CONFIG<------");
+			case "MSSQL":
+				srConfiguration.configuration = IniHelper.load("sushiradarPSQL.ini");
+				System.out.println("------>Postgre CONFIG<------");
 				break;
 			case "SQL":
-				srConfiguration.configuration = IniHelper.load("sushiradar.ini");
+				srConfiguration.configuration = IniHelper.load("sushiradarMSSQL.ini");
 				System.out.println("------>SQL CONFIG<------");
 				break;
 			default:
-				srConfiguration.configuration = IniHelper.load("sushiradar.ini");
+				srConfiguration.configuration = IniHelper.load("sushiradarPSQL.ini");
 				System.out.println("------>DEFAULT CONFIG<-------");
 				break;
 			}

@@ -14,9 +14,9 @@ public final class PersistStrategyFactory<T> {
 	
 	public PersistStrategy<T> createStrategy(String type) {
 		switch (type) {
-		case "SQL":
+		case "MSSQL":
 			return new SQLPersisStrategy<T>(clazz);
-		case "OO":
+		case "PSQL":
 			return new PostgrePersistStrategy<T>(clazz);
 		default:
 			return null;

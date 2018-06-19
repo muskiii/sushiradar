@@ -79,6 +79,8 @@ CREATE TABLE public.forecast(
 	longitude varchar(40) NOT NULL
     );
 	
+    CREATE UNIQUE INDEX country_city ON public.forecast
+  USING btree (country COLLATE pg_catalog."default", city COLLATE pg_catalog."default");
 
 CREATE TABLE public.fcday(	
 	id SERIAL,

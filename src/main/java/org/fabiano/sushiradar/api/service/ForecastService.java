@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.fabiano.sushiradar.api.dao.DAO;
@@ -53,8 +54,8 @@ public class ForecastService implements JsonParseable<Forecast> {
 			fcDay.setTzLong(jsonDate.get("tz_short").getAsString());
 			fcDay.setTzShort(jsonDate.get("tz_long").getAsString());
 
-			fcDay.setHighT(jsonDay.getAsJsonObject("high").get("celsius").getAsFloat());
-			fcDay.setLowT(jsonDay.getAsJsonObject("low").get("celsius").getAsFloat());
+			fcDay.setHighT(jsonDay.getAsJsonObject("high").get("celsius").getAsString());
+			fcDay.setLowT(jsonDay.getAsJsonObject("low").get("celsius").getAsString());
 
 			fcDay.setIconURL(jsonDay.get("icon_url").getAsString());
 
@@ -69,8 +70,13 @@ public class ForecastService implements JsonParseable<Forecast> {
 		return f;
 	}
 
-	public void save(Forecast f) {
-		dao.insert(f);
+	public String save(Forecast f) {
+		try {
+			dao.insert(f);
+		} catch (SQLException e) {
+			return "duplicate";
+		}
+		return "ok";
 	}
 	
 	public List<Forecast> getAll(){
@@ -83,5 +89,8 @@ public class ForecastService implements JsonParseable<Forecast> {
 	
 	public void deleteAll() {
 		dao.deleteAll();
+	}
+	public List<Forecast> getWhere(String field, String value){
+		return dao.findWhere(field, value);
 	}
 }

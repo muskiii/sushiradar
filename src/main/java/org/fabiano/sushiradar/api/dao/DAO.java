@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.utils.FK;
 import org.fabiano.sushiradar.api.utils.Id;
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
@@ -29,7 +30,7 @@ import org.fabiano.sushiradar.api.utils.SQLHelper;
 		this.strategy =  strategy;
 	}
 	
-	public void insert(T t) {
+	public void insert(T t) throws SQLException{
 		strategy.insert(t);
 	}
 
@@ -51,5 +52,9 @@ import org.fabiano.sushiradar.api.utils.SQLHelper;
 	
 	public void deleteAll() {
 		strategy.deleteAll();
+	}
+
+	public List<T> findWhere(String field, String value) {
+		return strategy.findWhere(field, value);
 	}
 }

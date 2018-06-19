@@ -35,6 +35,11 @@ $(document).ready(function () {
                     url: '/forecast',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
+                    statusCode: {
+	                    201: function() {
+	                      alert( "Ya agrego esta ciudad" );
+	                    }
+	                  },
                     success: function (data) {
                         $("#forecast").text("Sended");
                         $("#forecast-data").text("");
@@ -61,6 +66,14 @@ $(document).ready(function () {
                 if (xhr.status === 200) {
                     $('#response').text(JSON.stringify(data, null, 2));
                     $("#forecast").text("Received");
+                    
+                    for (city in data){
+	                	console.log(data[city].city);
+	                	$("#cityData").append($('<option>', {
+	                	    value: data[city].id,
+	                	    text: data[city].city
+	                	}));
+                	}
                 } else {
                     $('#forecast').text('Nothing Here');
                 }
@@ -88,6 +101,37 @@ $(document).ready(function () {
         });
 
     });
+    
+    $("#btnFilter").click(function () {
+        if ($("#response").text() != "" && $("#forecast-data").text() != "ERROR") {
+          
+                let data = {
+                		id:$("#cityData").val(),
+                		type: "temp",
+                		minTempC: $("#minTemp").val(),
+                		maxTempC: $("#maxTemp").val()
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/filters',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',                   
+                    success: function (data) {
+                        $("#forecast").text("Sended Filter");
+                        $("#forecast-data").text("");
+                        $('#response').text("");
+                    },
+                    error: function () {
+                        $('#forecast').text('ERROR');
+                    }
+                });
+            } else {
+                $("#forecast").text("ERROR");
+            }
+        
+    });
+    
 
     var addressPicker = new AddressPicker();
 

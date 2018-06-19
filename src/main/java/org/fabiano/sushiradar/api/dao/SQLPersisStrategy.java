@@ -27,7 +27,7 @@ public class SQLPersisStrategy<T> extends PersistStrategy<T>{
 	}
 
 	@SuppressWarnings("unchecked")
-	public void insert(T t) {
+	public void insert(T t)  throws SQLException{
 		String insertStatement = "INSERT INTO  [sushi_radar_db].[dbo].[" + t.getClass().getSimpleName().toLowerCase()
 				+ "]" + " (" + SQLHelper.getColumns(t.getClass()) + ") " + "VALUES ( "
 				+ SQLHelper.getValues(t.getClass(), t) + ");";
@@ -265,5 +265,69 @@ public class SQLPersisStrategy<T> extends PersistStrategy<T>{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public List<T> findWhere(String field, String value) {
+		String whereStatement = "SELECT * FROM " + type.getSimpleName().toLowerCase() + " WHERE " + field + "=" + "\'" + value + "\'";
+		System.out.println(whereStatement);
+		Connection con = null;
+		ResultSet rs = null;
+		List<T> entities = null;
+		try {
+			con = DatabaseConnection.getInstance().getConnection();
+			Statement statement = con.createStatement();
+			rs = statement.executeQuery(whereStatement);
+			entities = new SQLHelper<T>().mapRersultSetToList(rs, type);
+
+			if (entities != null) {
+				boolean hasRelations = Arrays.stream(entities.get(0).getClass().getDeclaredFields())
+						.anyMatch(f -> f.isAnnotationPresent(OneToNRealtion.class));
+				rs.close();
+
+				if (hasRelations) {
+					for (T t : entities) {
+
+						Field relationField = Arrays.stream(t.getClass().getDeclaredFields())
+								.filter(f -> f.isAnnotationPresent(OneToNRealtion.class)).findAny().get();
+						Class<?> clazz = relationField.getDeclaredAnnotation(OneToNRealtion.class).clazz();
+
+						Field fkField = Arrays.stream(clazz.getDeclaredFields())
+								.filter(f -> f.isAnnotationPresent(FK.class)).findAny().get();
+						String fk = fkField.getDeclaredAnnotation(FK.class).name();
+
+						Field Idfield = Arrays.stream(t.getClass().getDeclaredFields())
+								.filter(f -> f.isAnnotationPresent(Id.class)).findAny().get();
+						Idfield.setAccessible(true);
+						int id = Idfield.getInt(t);
+
+						String selectChildTableSQL = "SELECT * from " + clazz.getSimpleName().toLowerCase() + " where "
+								+ fk + " = " + id;
+						System.out.println(selectChildTableSQL);
+
+						Statement childStatement = con.createStatement();
+						ResultSet childRS = childStatement.executeQuery(selectChildTableSQL);
+						relationField.setAccessible(true);
+						relationField.set(t, new SQLHelper<>().mapRersultSetToList(childRS, clazz));
+						System.out.println(t);
+
+						childRS.close();
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return entities;
 	}
 }

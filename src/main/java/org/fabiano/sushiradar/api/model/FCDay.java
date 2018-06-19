@@ -47,10 +47,10 @@ public class FCDay implements ComponentRateable  {
     public String tzLong;
 	
 	@Column(name="highT")
-    private float highT;
+    private String highT;
 	
 	@Column(name="lowT")
-    private float lowT;
+    private String lowT;
 	
 	@Column(name="aveWindkPH")
     private float aveWindKPH;
@@ -167,19 +167,19 @@ public class FCDay implements ComponentRateable  {
         this.tzLong = tzLong;
     }
 
-    public float getHighT() {
+    public String getHighT() {
         return highT;
     }
 
-    public void setHighT(float highT) {
+    public void setHighT(String highT) {
         this.highT = highT;
     }
 
-    public float getLowT() {
+    public String getLowT() {
         return lowT;
     }
 
-    public void setLowT(float lowT) {
+    public void setLowT(String lowT) {
         this.lowT = lowT;
     }
 

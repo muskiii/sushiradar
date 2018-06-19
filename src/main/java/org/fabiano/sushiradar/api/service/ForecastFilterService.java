@@ -1,5 +1,7 @@
 package org.fabiano.sushiradar.api.service;
 
+import java.sql.SQLException;
+
 import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.dao.PersistStrategy;
 import org.fabiano.sushiradar.api.factory.ForecastFilterFactory;
@@ -22,6 +24,7 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 	
 	@Override
 	public ForecastFilter fromJson(String json) {
+		System.out.println(json);
 		JsonObject response  = new JsonParser().parse(json).getAsJsonObject();
 		String type = response.getAsJsonObject().get("type").getAsString();
 		
@@ -38,10 +41,15 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 		return null;
 	}
 
-	public void save(ForecastFilter f) {
+	public String save(ForecastFilter f) {
 		if (f instanceof TempFilter) {
 			TempFilter tempFilter = (TempFilter) f;
-			dao.insert(tempFilter);
+			try {
+				dao.insert(tempFilter);
+			} catch (SQLException e) {
+				return "duplicate";
+			}			
 		}
+		return "ok";
 	}
 }

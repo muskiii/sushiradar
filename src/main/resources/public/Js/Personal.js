@@ -1,4 +1,33 @@
+$( $.ajax({
+    type: 'GET',
+    url: '/forecast',
+    error: function () {
+        $('#forecast').html('ERROR');
+    },
+    success: function (data, textStatus, xhr) {
+        if (xhr.status === 200) {
+            $('#response').text(JSON.stringify(data, null, 2));
+            $("#forecast").text("Received");
+            
+            for (city in data){
+            	console.log(data[city].city);
+            	$("#cityData").append($('<option>', {
+            	    value: data[city].id,
+            	    text: data[city].city
+            	}));
+        	}
+        } else {
+            $('#forecast').text('Nothing Here');
+        }
+    }
+
+})
+);
+
 $(document).ready(function () {
+	
+	
+	
     $("#btnSearch").click(function () {
         let city = encodeURIComponent($('#city').text());
         let country = encodeURIComponent($('#country').text());

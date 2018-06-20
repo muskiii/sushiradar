@@ -22,11 +22,9 @@ import org.fabiano.sushiradar.api.utils.SQLHelper;
 
 	private PersistStrategy<T> strategy;
 
-	private final Class<T> type;
 
-	public DAO(Class<T> type, PersistStrategy<T> strategy) {
+	public DAO(PersistStrategy<T> strategy) {
 		super();
-		this.type = type;
 		this.strategy =  strategy;
 	}
 	

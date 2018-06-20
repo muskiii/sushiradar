@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class FilterController {
-	
+public class FilterController {	
 	
 	ForecastFilterService forecastFilterService = new ForecastFilterService(
     		new PersistStrategyFactory<ForecastFilter>(ForecastFilter.class)

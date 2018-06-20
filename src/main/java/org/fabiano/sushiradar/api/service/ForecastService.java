@@ -8,10 +8,14 @@ import com.google.gson.JsonParser;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.fabiano.sushiradar.api.config.SRConfiguration;
 import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.dao.PersistStrategy;
+import org.fabiano.sushiradar.api.factory.PersistStrategyFactory;
 import org.fabiano.sushiradar.api.model.FCDay;
 import org.fabiano.sushiradar.api.model.Forecast;
+import org.fabiano.sushiradar.api.model.filter.ForecastFilter;
+import org.fabiano.sushiradar.api.model.filter.TempFilter;
 import org.fabiano.sushiradar.api.utils.JsonParseable;
 
 public class ForecastService implements JsonParseable<Forecast> {
@@ -20,7 +24,7 @@ public class ForecastService implements JsonParseable<Forecast> {
 
 	public ForecastService(PersistStrategy<Forecast> strategy) {
 		super();
-		this.dao = new DAO<Forecast>(Forecast.class, strategy);
+		this.dao = new DAO<Forecast>(strategy);
 	}
 
 	@Override
@@ -88,6 +92,10 @@ public class ForecastService implements JsonParseable<Forecast> {
 	}
 	
 	public void deleteAll() {
+		ForecastFilterService forecastFilterService = new ForecastFilterService(
+	    		new PersistStrategyFactory<TempFilter>(TempFilter.class)
+	    		.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
+		forecastFilterService.deleteALL();
 		dao.deleteAll();
 	}
 	public List<Forecast> getWhere(String field, String value){

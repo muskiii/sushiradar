@@ -12,14 +12,13 @@ import org.fabiano.sushiradar.api.utils.JsonParseable;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class ForecastFilterService implements JsonParseable<ForecastFilter> {
-
+public class ForecastFilterService<T> implements JsonParseable<ForecastFilter> {
 	
-	private DAO<ForecastFilter> dao;		
+	private DAO<T> dao;		
 
-	public ForecastFilterService(PersistStrategy<ForecastFilter> strategy) {
+	public ForecastFilterService(PersistStrategy<T> strategy) {		
 		super();
-		this.dao = new DAO<ForecastFilter>(ForecastFilter.class, strategy);
+		this.dao = new DAO<T>(strategy);
 	}
 	
 	@Override
@@ -43,7 +42,7 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 
 	public String save(ForecastFilter f) {
 		if (f instanceof TempFilter) {
-			TempFilter tempFilter = (TempFilter) f;
+			T tempFilter = (T) f;
 			try {
 				dao.insert(tempFilter);
 			} catch (SQLException e) {
@@ -51,5 +50,9 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 			}			
 		}
 		return "ok";
+	}
+
+	public void deleteALL() {
+		dao.deleteAll();		
 	}
 }

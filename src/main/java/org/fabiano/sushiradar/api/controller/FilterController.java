@@ -1,7 +1,5 @@
 package org.fabiano.sushiradar.api.controller;
 
-import org.fabiano.sushiradar.api.config.SRConfiguration;
-import org.fabiano.sushiradar.api.factory.PersistStrategyFactory;
 import org.fabiano.sushiradar.api.model.filter.ForecastFilter;
 import org.fabiano.sushiradar.api.service.ForecastFilterService;
 import org.springframework.http.HttpStatus;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class FilterController {	
 	
-	ForecastFilterService forecastFilterService = new ForecastFilterService(
-    		new PersistStrategyFactory<ForecastFilter>(ForecastFilter.class)
-    		.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
+	ForecastFilterService forecastFilterService = new ForecastFilterService();
 
 	@RequestMapping(value = "/filters", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

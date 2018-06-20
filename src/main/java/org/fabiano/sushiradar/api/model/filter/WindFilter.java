@@ -1,36 +1,58 @@
 package org.fabiano.sushiradar.api.model.filter;
 
 import org.fabiano.sushiradar.api.model.ComponentRateable;
+import org.fabiano.sushiradar.api.utils.Column;
+import org.fabiano.sushiradar.api.utils.FK;
 
 public class WindFilter extends ForecastFilter {
 
-    private float aveWindKPH;
-    private String aveWindDir;
+	@Column(name="fk_forecast")
+	@FK(name="fk_forecast")
+	private int forecastID; 
+	
+	@Column(name="maxWindKPH")
+    private float maxWindKPH;
+	
+	@Column(name="minWindKPH")
+    private float minWindKPH;
+	
+	@Column(name="windDir")
+    private String windDir;
 
     public WindFilter(ComponentRateable componentRateable) {
         super(componentRateable);
     }
     
-    public float getAveWindKPH() {
-		return aveWindKPH;
+    public int getForecastID() {
+		return forecastID;
 	}
 
-
-
-	public void setAveWindKPH(float aveWindKPH) {
-		this.aveWindKPH = aveWindKPH;
+	public void setForecastID(int forecastID) {
+		this.forecastID = forecastID;
 	}
 
-
-
-	public String getAveWindDir() {
-		return aveWindDir;
+	public float getMaxWindKPH() {
+		return maxWindKPH;
 	}
 
+	public void setMaxWindKPH(float maxWindKPH) {
+		this.maxWindKPH = maxWindKPH;
+	}
 
+	public float getMinWindKPH() {
+		return minWindKPH;
+	}
 
-	public void setAveWindDir(String aveWindDir) {
-		this.aveWindDir = aveWindDir;
+	public void setMinWindKPH(float minWindKPH) {
+		this.minWindKPH = minWindKPH;
+	}
+
+	public String getWindDir() {
+		return windDir;
+	}
+
+	public void setWindDir(String windDir) {
+		this.windDir = windDir;
 	}
 
 	@Override

@@ -11,22 +11,16 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
-import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.utils.FK;
 import org.fabiano.sushiradar.api.utils.Id;
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 import org.fabiano.sushiradar.api.utils.SQLHelper;
-import org.postgresql.util.PSQLException;
 
 public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 
 	private final Class<T> type;
-	private String mock = "[{\"id\":52,\"target\":\"something\",\"country\":\"Argentina\",\"city\":\"Buenos Aires\",\"latitude\":\"-34.61000061\",\"longitude\":\"-58.36999893\",\"extended\":[{\"forecastID\":52,\"day\":11,\"month\":6,\"year\":2018,\"yday\":161,\"hour\":19,\"monthName\":\"June\",\"weekday\":\"Monday\",\"ampm\":\"PM\",\"tzShort\":\"America/Argentina/Cordoba\",\"tzLong\":\"-03\",\"highT\":16.0,\"lowT\":9.0,\"aveWindKPH\":13.0,\"aveWindDir\":\"SSE\",\"aveWindDegrees\":153.0,\"precipAllDay\":\"2\",\"aveHumidity\":81.0,\"conditions\":\"Chance of Rain\",\"iconURL\":\"http://icons.wxug.com/i/c/k/chancerain.gif\"},{\"forecastID\":52,\"day\":12,\"month\":6,\"year\":2018,\"yday\":162,\"hour\":19,\"monthName\":\"June\",\"weekday\":\"Tuesday\",\"ampm\":\"PM\",\"tzShort\":\"America/Argentina/Cordoba\",\"tzLong\":\"-03\",\"highT\":11.0,\"lowT\":6.0,\"aveWindKPH\":27.0,\"aveWindDir\":\"SW\",\"aveWindDegrees\":215.0,\"precipAllDay\":\"7\",\"aveHumidity\":82.0,\"conditions\":\"Rain\",\"iconURL\":\"http://icons.wxug.com/i/c/k/rain.gif\"},{\"forecastID\":52,\"day\":13,\"month\":6,\"year\":2018,\"yday\":163,\"hour\":19,\"monthName\":\"June\",\"weekday\":\"Wednesday\",\"ampm\":\"PM\",\"tzShort\":\"America/Argentina/Cordoba\",\"tzLong\":\"-03\",\"highT\":11.0,\"lowT\":5.0,\"aveWindKPH\":18.0,\"aveWindDir\":\"WSW\",\"aveWindDegrees\":248.0,\"precipAllDay\":\"0\",\"aveHumidity\":70.0,\"conditions\":\"Mostly Cloudy\",\"iconURL\":\"http://icons.wxug.com/i/c/k/mostlycloudy.gif\"},{\"forecastID\":52,\"day\":14,\"month\":6,\"year\":2018,\"yday\":164,\"hour\":19,\"monthName\":\"June\",\"weekday\":\"Thursday\",\"ampm\":\"PM\",\"tzShort\":\"America/Argentina/Cordoba\",\"tzLong\":\"-03\",\"highT\":11.0,\"lowT\":4.0,\"aveWindKPH\":14.0,\"aveWindDir\":\"SW\",\"aveWindDegrees\":222.0,\"precipAllDay\":\"0\",\"aveHumidity\":69.0,\"conditions\":\"Partly Cloudy\",\"iconURL\":\"http://icons.wxug.com/i/c/k/partlycloudy.gif\"}]}]";
-
+	
 	public PostgrePersistStrategy(Class<T> type) {
 		super();
 		this.type = type;
@@ -102,11 +96,6 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 
 			}
 			con.commit();
-		} catch (PSQLException e) {
-			System.out.println(" duplicate key ");
-			e.printStackTrace();
-		}catch (SQLException e) {
-			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

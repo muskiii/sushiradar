@@ -1,22 +1,7 @@
 package org.fabiano.sushiradar.api.dao;
 
-import static java.lang.Math.toIntExact;
-
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.fabiano.sushiradar.api.model.Forecast;
-import org.fabiano.sushiradar.api.utils.FK;
-import org.fabiano.sushiradar.api.utils.Id;
-import org.fabiano.sushiradar.api.utils.OneToNRealtion;
-import org.fabiano.sushiradar.api.utils.SQLHelper;
 
 	public class DAO<T> {
 

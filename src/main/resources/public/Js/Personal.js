@@ -1,33 +1,30 @@
-$( $.ajax({
-    type: 'GET',
-    url: '/forecast',
-    error: function () {
-        $('#forecast').html('ERROR');
-    },
-    success: function (data, textStatus, xhr) {
-        if (xhr.status === 200) {
-            $('#response').text(JSON.stringify(data, null, 2));
-            $("#forecast").text("Received");
-            
-            for (city in data){
-            	console.log(data[city].city);
-            	$("#cityData").append($('<option>', {
-            	    value: data[city].id,
-            	    text: data[city].city
-            	}));
-        	}
-        } else {
-            $('#forecast').text('Nothing Here');
-        }
-    }
+$($.ajax({
+        type: 'GET',
+        url: '/forecast',
+        error: function () {
+            $('#forecast').html('ERROR');
+        },
+        success: function (data, textStatus, xhr) {
+            if (xhr.status === 200) {
+                $('#response').text(JSON.stringify(data, null, 2));
+                $("#forecast").text("Received");
 
-})
+                for (city in data) {
+                    console.log(data[city].city);
+                    $("#cityData").append($('<option>', {
+                        value: data[city].id,
+                        text: data[city].city
+                    }));
+                }
+            } else {
+                $('#forecast').text('Nothing Here');
+            }
+        }
+
+    })
 );
 
 $(document).ready(function () {
-	
-	
-	
     $("#btnSearch").click(function () {
         let city = encodeURIComponent($('#city').text());
         let country = encodeURIComponent($('#country').text());
@@ -65,26 +62,39 @@ $(document).ready(function () {
                     data: JSON.stringify(data),
                     contentType: 'application/json',
                     statusCode: {
-	                    201: function() {
-	                      alert( "Ya agrego esta ciudad" );
-	                    }
-	                  },
+                        422: function () {
+                            alert("Ya agrego esta ciudad");
+                        },
+                        201: function () {
+                            alert("guadado!");
+                        }
+                    },
                     success: function (data) {
-                        $("#forecast").text("Sended");
+                        $("#btnSend").addClass("disabled");
+                        $("#forecast").text("guardado");
                         $("#forecast-data").text("");
                         $('#response').text("");
+                        $("#buscador").val("");
+                        $("#btnSearch").addClass("disabled");
+                        getForecast();
                     },
                     error: function () {
+                        $("#btnSend").addClass("disabled");
                         $('#forecast').text('ERROR');
                     }
                 });
             } else {
                 $("#forecast").text("ERROR");
             }
+        } else {
             $("#forecast").text("ERROR");
         }
     });
     $("#btnGet").click(function () {
+        getForecast();
+    });
+
+    function getForecast() {
         $.ajax({
             type: 'GET',
             url: '/forecast',
@@ -95,14 +105,14 @@ $(document).ready(function () {
                 if (xhr.status === 200) {
                     $('#response').text(JSON.stringify(data, null, 2));
                     $("#forecast").text("Received");
-                    
-                    for (city in data){
-	                	console.log(data[city].city);
-	                	$("#cityData").append($('<option>', {
-	                	    value: data[city].id,
-	                	    text: data[city].city
-	                	}));
-                	}
+
+                    for (city in data) {
+                        $("#cityData").empty();
+                        $("#cityData").append($('<option>', {
+                            value: data[city].id,
+                            text: data[city].city
+                        }));
+                    }
                 } else {
                     $('#forecast').text('Nothing Here');
                 }
@@ -110,7 +120,8 @@ $(document).ready(function () {
 
         });
 
-    });
+    }
+
     $("#btnDel").click(function () {
         $.ajax({
             type: 'DELETE',
@@ -120,6 +131,7 @@ $(document).ready(function () {
             },
             success: function (data, textStatus, xhr) {
                 if (xhr.status === 200) {
+                    $("#cityData").empty();
                     $('#response').text("");
                     $("#forecast").text("Delete");
                 } else {
@@ -130,22 +142,48 @@ $(document).ready(function () {
         });
 
     });
-    
+
     $("#btnFilter").click(function () {
         if ($("#response").text() != "" && $("#forecast-data").text() != "ERROR") {
-          
-                let data = {
-                		id:$("#cityData").val(),
-                		type: "temp",
-                		minTempC: $("#minTemp").val(),
-                		maxTempC: $("#maxTemp").val()
-                }
+            var id = $("#cityData").val();
+            var dataArray = [];
+            let tempData = {
+                id: id,
+                type: "temp",
+                minTempC: $("#minTemp").val(),
+                maxTempC: $("#maxTemp").val()
+            };
+            let humData = {
+                    id: id,
+                    type: "hum",
+                    rain: $("#rain").prop('checked'),
+                    minHum: $("#minHum").val(),
+                    maxHum: $("#maxHum").val()
+                };
+            let windData = {
+                    id: id,
+                    type: "wind",
+                    windDir: $("#windDir").val(),
+                    minWind: $("#minWind").val(),
+                    maxWind: $("#maxWind").val()
+                };
 
+            if ($("#tempCheck").prop('checked')) {
+                dataArray.push(tempData);
+            }
+            if ($("#rainCheck").prop('checked')) {
+                dataArray.push(humData);
+            }
+            if ($("#windCheck").prop('checked')) {
+                dataArray.push(windData);
+            }
+
+            for (data in dataArray) {
                 $.ajax({
                     type: 'POST',
                     url: '/filters',
-                    data: JSON.stringify(data),
-                    contentType: 'application/json',                   
+                    data: JSON.stringify(dataArray[data]),
+                    contentType: 'application/json',
                     success: function (data) {
                         $("#forecast").text("Sended Filter");
                         $("#forecast-data").text("");
@@ -155,12 +193,13 @@ $(document).ready(function () {
                         $('#forecast').text('ERROR');
                     }
                 });
-            } else {
-                $("#forecast").text("ERROR");
             }
-        
+        } else {
+            $("#forecast").text("ERROR");
+        }
+
     });
-    
+
 
     var addressPicker = new AddressPicker();
 
@@ -204,6 +243,7 @@ $(document).ready(function () {
         })
         div.html(html.join('\n'));
     }
+
     var action;
     $(".number-spinner button").mousedown(function () {
         btn = $(this);
@@ -211,25 +251,25 @@ $(document).ready(function () {
         btn.closest('.number-spinner').find('button').prop("disabled", false);
 
         if (btn.attr('data-dir') == 'up') {
-            action = setInterval(function(){
-                if ( input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max')) ) {
-                    input.val(parseInt(input.val())+1);
-                }else{
+            action = setInterval(function () {
+                if (input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max'))) {
+                    input.val(parseInt(input.val()) + 1);
+                } else {
                     btn.prop("disabled", true);
                     clearInterval(action);
                 }
             }, 50);
         } else {
-            action = setInterval(function(){
-                if ( input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min')) ) {
-                    input.val(parseInt(input.val())-1);
-                }else{
+            action = setInterval(function () {
+                if (input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min'))) {
+                    input.val(parseInt(input.val()) - 1);
+                } else {
                     btn.prop("disabled", true);
                     clearInterval(action);
                 }
             }, 50);
         }
-    }).mouseup(function(){
+    }).mouseup(function () {
         clearInterval(action);
     });
 });

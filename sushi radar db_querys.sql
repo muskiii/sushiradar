@@ -111,6 +111,18 @@ CREATE TABLE public.tempfilter (
 	fk_forecast integer references forecast(id),
 	maxTempC real null,
 	minTempC real null);
-/* Result : "Query OK, 0 rows affected (execution time: 171 ms; total time: 1.593 sec)" */
-
+	
+CREATE TABLE public.preciphumidityfilter (
+	id SERIAL,
+	fk_forecast integer references forecast(id),
+	precipitation boolean ,
+	maxHumidity real null,
+	minHumidity real null);
+	
+CREATE TABLE public.windfilter (
+	id SERIAL,
+	fk_forecast integer references forecast(id),
+	windDir varchar(40) NULL,
+	maxWindKPH real null,
+	minWindKPH real null);
 

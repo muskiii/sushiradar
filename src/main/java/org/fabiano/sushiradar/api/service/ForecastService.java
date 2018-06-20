@@ -1,26 +1,24 @@
 package org.fabiano.sushiradar.api.service;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import org.fabiano.sushiradar.api.dao.DAO;
+import org.fabiano.sushiradar.api.dao.PersistStrategy;
+import org.fabiano.sushiradar.api.model.FCDay;
+import org.fabiano.sushiradar.api.model.Forecast;
+import org.fabiano.sushiradar.api.utils.JsonParseable;
+import org.postgresql.util.PSQLException;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import org.fabiano.sushiradar.api.config.SRConfiguration;
-import org.fabiano.sushiradar.api.dao.DAO;
-import org.fabiano.sushiradar.api.dao.PersistStrategy;
-import org.fabiano.sushiradar.api.factory.PersistStrategyFactory;
-import org.fabiano.sushiradar.api.model.FCDay;
-import org.fabiano.sushiradar.api.model.Forecast;
-import org.fabiano.sushiradar.api.model.filter.ForecastFilter;
-import org.fabiano.sushiradar.api.model.filter.TempFilter;
-import org.fabiano.sushiradar.api.utils.JsonParseable;
-
 public class ForecastService implements JsonParseable<Forecast> {
 	
 	private DAO<Forecast> dao;		
+	ForecastFilterService forecastFilterService = new ForecastFilterService();
 
 	public ForecastService(PersistStrategy<Forecast> strategy) {
 		super();
@@ -77,14 +75,19 @@ public class ForecastService implements JsonParseable<Forecast> {
 	public String save(Forecast f) {
 		try {
 			dao.insert(f);
+		} catch (PSQLException e) {
+			return "duplicate";		
 		} catch (SQLException e) {
-			return "duplicate";
+			return "SQLException";
 		}
 		return "ok";
 	}
 	
 	public List<Forecast> getAll(){
 		return dao.findAll();
+		
+		
+		
 	}
 	
 	public Forecast getById(String id) {
@@ -92,9 +95,7 @@ public class ForecastService implements JsonParseable<Forecast> {
 	}
 	
 	public void deleteAll() {
-		ForecastFilterService forecastFilterService = new ForecastFilterService(
-	    		new PersistStrategyFactory<TempFilter>(TempFilter.class)
-	    		.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
+		
 		forecastFilterService.deleteALL();
 		dao.deleteAll();
 	}

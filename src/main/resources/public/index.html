@@ -45,118 +45,144 @@
 						<input id="buscador" type="text" class="form-control"
 							placeholder="city">
 					</div>
-					<button id="btnSearch" class="btn btn-default disabled">Check
-						Availability</button>
+					<button id="btnSearch" class="btn btn-default disabled">disponibilidad</button>
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a id="availability"><span class="sr-only">(current)</span></a></li>
 				</ul>
 				<div class="navbar-form navbar-left" style="margin-left: 0px;">
 					<button id="btnSend" class="btn btn-default disabled">Suscribir</button>
-					<button id="btnGet" class="btn btn-default">Refresh</button>
-					<button id="btnDel" class="btn btn-danger">DELETE ALL</button>
+					<button id="btnGet" class="btn btn-default">actualizar</button>
+					<button id="btnDel" class="btn btn-danger">borrar todo</button>
 				</div>
 			</div>
 
 		</div>
 		<!-- /.navbar-collapse -->
-		
+
 	</nav>
 	<div class="container-fluid" id="wrapper">
 		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-3 ">
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+
 				<h2>FILTROS</h2>
+
+				<section>
+					<label for="viento">CIUDAD</label>
+					<div class="form-group col-md-12">
+						<div class="form-row align-items-center">
+							<div class="form-group col-md-6">
+								<select id="cityData" class="form-control">
+								</select>
+							</div>
+							<div class="col-md-1">
+								<button id="btnFilter" class="btn btn-primary">Guardar</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
 				<section id="filtros2">
-					<label class="lab" for="temperatura">TEMPERATURA</label> <br>
+					<div class="form-check">
+				        <input class="form-check-input" type="checkbox" id="tempCheck">
+				        <label class="form-check-label" for="tempCheck">
+				          TEMPERATURA
+				        </label>
+				      </div>
+					
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label >Minima</label> <input id="minTemp"
-								type="number" class="form-control" id="minTemp"
-								placeholder="min" min="-10" max="49">
+							<label>Minima</label> <input id="minTemp" type="number"
+								class="form-control" id="minTemp" placeholder="min" min="-10"
+								max="49">
 						</div>
 						<div class="form-group col-md-6">
-							<label >Maxima</label> <input id="maxTemp"
-								type="number" class="form-control" id="minTemp"
-								placeholder="min" min="-9" max="50">
+							<label>maxima</label> <input id="maxTemp" type="number"
+								class="form-control" id="minTemp" placeholder="min" min="-9"
+								max="50">
 						</div>
 					</div>
 				</section>
 
 				<section id="filtros3">
-					<label class="lab" for="lluvia">LLUVIA</label> <br>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="exampleRadios"
-							id="exampleRadios1" value="option1" checked> <label
-							class="form-check-label" for="exampleRadios1"> si </label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="exampleRadios"
-							id="exampleRadios2" value="option2"> <label
-							class="form-check-label" for="exampleRadios2"> no </label>
+				        <input class="form-check-input" type="checkbox" id="rainCheck">
+				        <label class="form-check-label" for="rainCheck">
+				          LLuvia y Humedad
+				        </label>
+				      </div>
+				      <div style="margin-left: 15px;">
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="exampleRadios"
+								id="rain" value="option1" > <label
+								class="form-check-label" for="exampleRadios1"> si </label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="exampleRadios"
+								id="rain" value="option2" checked> <label
+								class="form-check-label" for="exampleRadios2"> no </label>
+						</div>
 					</div>
 				</section>
 				<section>
-					<label class="lab" for="humedad">HUMEDAD</label> <br>
+					<!-- <div class="form-check">
+				        <input class="form-check-input" type="checkbox" id="humCheck">
+				        <label class="form-check-label" for="humCheck">
+				          HUMEDAD
+				        </label>
+				      </div> -->
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="exampleInputEmail1">minima</label> <input
-								type="number" class="form-control" id="minTemp"
+								type="number" class="form-control" id="minHum"
 								placeholder="min" min="-10" max="49">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="exampleInputEmail1">Maxima</label> <input
-								type="number" class="form-control" id="minTemp"
+							<label for="exampleInputEmail1">maxima</label> <input
+								type="number" class="form-control" id="maxHum"
 								placeholder="min" min="-9" max="50">
 						</div>
 					</div>
 				</section>
 
 				<section id="filtros4">
-					<label class="lab" for="viento">VIENTO</label> <br>
+					<div class="form-check">
+				        <input class="form-check-input" type="checkbox" id="windCheck">
+				        <label class="form-check-label" for="windCheck">
+				          Viento
+				        </label>
+				      </div>
 					<div class="form-row">
 						<div class="form-group col-md-4">
-							<label for="viento">Direccion</label> <select id="inputState"
+							<label for="viento">Direccion</label> <select id="windDir"
 								class="form-control">
-								<option value="nordeste">N</option>
-								<option value="nordeste">S</option>
-								<option value="nordeste">E</option>
-								<option value="nordeste">W</option>
-								<option value="nordeste">NE</option>
-								<option value="sudeste">SE</option>
-								<option value="sudoeste">SW</option>
-								<option value="nordeste">NW</option>
+								<option value="N">N</option>
+								<option value="N">N</option>
+								<option value="E">E</option>
+								<option value="W">W</option>
+								<option value="NE">NE</option>
+								<option value="SE">SE</option>
+								<option value="SW">SW</option>
+								<option value="NW">NW</option>
 							</select>
 						</div>
 
 						<div class="form-group col-md-4">
 							<label for="exampleInputEmail1">minima</label> <input
-								type="number" class="form-control" id="minTemp"
+								type="number" class="form-control" id="minWind"
 								placeholder="min" min="-10" max="49">
 						</div>
 						<div class="form-group col-md-4">
-							<label for="exampleInputEmail1">Maxima</label> <input
-								type="number" class="form-control" id="minTemp"
+							<label for="exampleInputEmail1">maxima</label> <input
+								type="number" class="form-control" id="maxWind"
 								placeholder="min" min="-9" max="50">
 						</div>
 					</div>
 				</section>
-				<section>
-				<div class="form-row align-items-center">
-					<div class="col-auto my-1">
-						<label for="viento">ciudad</label> <select id="cityData"
-							class="form-control">
-						</select>
-					</div>
-					<div class="col-auto my-1">
-						<button id="btnFilter" class="btn btn-primary">Guardar</button>
-					</div>
-				</div>
-				</section>
-
 
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<div>
 					<input id="city" type="hidden"> <input id="country"
 						type="hidden">
@@ -165,6 +191,7 @@
 					<input id="forecast-data" type="hidden">
 				</div>
 			</div>
+			<div class="col-md-6"></div>
 
 			<!-- <div class="col-xs-3 col-xs-offset-3">
             <div class="input-group number-spinner">

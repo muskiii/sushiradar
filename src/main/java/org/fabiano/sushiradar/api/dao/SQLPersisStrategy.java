@@ -16,6 +16,7 @@ import org.fabiano.sushiradar.api.utils.FK;
 import org.fabiano.sushiradar.api.utils.Id;
 import org.fabiano.sushiradar.api.utils.OneToNRealtion;
 import org.fabiano.sushiradar.api.utils.SQLHelper;
+import org.postgresql.util.PSQLException;
 
 public class SQLPersisStrategy<T> extends PersistStrategy<T>{
 

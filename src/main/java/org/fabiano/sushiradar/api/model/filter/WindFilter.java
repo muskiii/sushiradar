@@ -2,8 +2,10 @@ package org.fabiano.sushiradar.api.model.filter;
 
 import org.fabiano.sushiradar.api.model.ComponentRateable;
 import org.fabiano.sushiradar.api.utils.Column;
+import org.fabiano.sushiradar.api.utils.Entity;
 import org.fabiano.sushiradar.api.utils.FK;
 
+@Entity
 public class WindFilter extends ForecastFilter {
 
 	@Column(name="fk_forecast")
@@ -22,6 +24,9 @@ public class WindFilter extends ForecastFilter {
     public WindFilter(ComponentRateable componentRateable) {
         super(componentRateable);
     }
+	public WindFilter() {
+		super(null);
+	}
     
     public int getForecastID() {
 		return forecastID;

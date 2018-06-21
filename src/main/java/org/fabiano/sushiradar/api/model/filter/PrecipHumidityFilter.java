@@ -2,8 +2,10 @@ package org.fabiano.sushiradar.api.model.filter;
 
 import org.fabiano.sushiradar.api.model.ComponentRateable;
 import org.fabiano.sushiradar.api.utils.Column;
+import org.fabiano.sushiradar.api.utils.Entity;
 import org.fabiano.sushiradar.api.utils.FK;
 
+@Entity
 public class PrecipHumidityFilter extends ForecastFilter {
 
 	@Column(name="fk_forecast")
@@ -22,6 +24,10 @@ public class PrecipHumidityFilter extends ForecastFilter {
     public PrecipHumidityFilter(ComponentRateable componentRateable) {
         super(componentRateable);
     }
+    
+    public PrecipHumidityFilter() {
+		super(null);
+	}
     
 	public boolean isPrecipitation() {
 		return precipitation;

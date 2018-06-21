@@ -123,8 +123,12 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 			e.printStackTrace();
 		} finally {
 			try {
-				rs.close();
-				con.close();
+				if (rs !=  null && !rs.isClosed()) {
+					rs.close();
+				}
+				if(!con.isClosed()) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -188,8 +192,12 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 			e.printStackTrace();
 		} finally {
 			try {
-				rs.close();
-				con.close();
+				if (rs !=  null && !rs.isClosed()) {
+					rs.close();
+				}
+				if(!con.isClosed()) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -212,8 +220,12 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 			e.printStackTrace();
 		} finally {
 			try {
-				rs.close();
-				con.close();
+				if (rs !=  null && !rs.isClosed()) {
+					rs.close();
+				}
+				if(!con.isClosed()) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -316,9 +328,14 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				rs.close();
-				con.close();
+			try {				
+				if (rs !=  null && !rs.isClosed()) {
+					rs.close();
+				}
+				if(!con.isClosed()) {
+					con.close();
+				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

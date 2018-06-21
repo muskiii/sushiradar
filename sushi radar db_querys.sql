@@ -108,20 +108,20 @@ CREATE TABLE public.fcday(
 
 CREATE TABLE public.tempfilter (
 	id SERIAL,
-	fk_forecast integer references forecast(id),
+	fk_forecast integer references forecast(id) UNIQUE,
 	maxTempC real null,
 	minTempC real null);
 	
 CREATE TABLE public.preciphumidityfilter (
 	id SERIAL,
-	fk_forecast integer references forecast(id),
+	fk_forecast integer references forecast(id) UNIQUE,
 	precipitation boolean ,
 	maxHumidity real null,
 	minHumidity real null);
 	
 CREATE TABLE public.windfilter (
 	id SERIAL,
-	fk_forecast integer references forecast(id),
+	fk_forecast integer references forecast(id) UNIQUE,
 	windDir varchar(40) NULL,
 	maxWindKPH real null,
 	minWindKPH real null);

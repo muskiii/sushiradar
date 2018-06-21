@@ -1,30 +1,12 @@
-$($.ajax({
-        type: 'GET',
-        url: '/forecast',
-        error: function () {
-            $('#forecast').html('ERROR');
-        },
-        success: function (data, textStatus, xhr) {
-            if (xhr.status === 200) {
-                $('#response').text(JSON.stringify(data, null, 2));
-                $("#forecast").text("Received");
-
-                for (city in data) {
-                    console.log(data[city].city);
-                    $("#cityData").append($('<option>', {
-                        value: data[city].id,
-                        text: data[city].city
-                    }));
-                }
-            } else {
-                $('#forecast').text('Nothing Here');
-            }
-        }
-
-    })
-);
+$(getForecast());
 
 $(document).ready(function () {
+	
+// $( "#cityData" )
+// .change(function () {
+// completeFilters();
+// });
+	
     $("#btnSearch").click(function () {
         let city = encodeURIComponent($('#city').text());
         let country = encodeURIComponent($('#country').text());
@@ -94,42 +76,7 @@ $(document).ready(function () {
         getForecast();
     });
 
-    function getForecast() {
-        $.ajax({
-            type: 'GET',
-            url: '/forecast',
-            error: function () {
-                $('#forecast').html('ERROR');
-            },
-            success: function (data, textStatus, xhr) {
-                if (xhr.status === 200) {
-                	for (city in data) {
-                		$.ajax({
-                            type: 'GET',
-                            url: '/filters?field=fk_forecast&value=' + data[city].id,
-                            error: function () {
-                            	alert("No se pudo traer los filtros para "+ data[city].city);
-                            },
-                            success: function (filterdata, textStatus, xhr) {
-                            }
-                		});
-                		
-                        $("#cityData").empty();
-                        $("#cityData").append($('<option>', {
-                            value: data[city].id,
-                            text: data[city].city
-                        }));
-                    }
-                    $('#response').text(JSON.stringify(data, null, 2));
-                    $("#forecast").text("Received");
-                } else {
-                    $('#forecast').text('Nothing Here');
-                }
-            }
-
-        });
-
-    }
+    
 
     $("#btnDel").click(function () {
         $.ajax({
@@ -197,6 +144,7 @@ $(document).ready(function () {
                         $("#forecast").text("Sended Filter");
                         $("#forecast-data").text("");
                         $('#response').text("");
+                        getForecast();
                     },
                     error: function () {
                         $('#forecast').text('ERROR');
@@ -282,3 +230,50 @@ $(document).ready(function () {
         clearInterval(action);
     });
 });
+function getForecast() {
+    $.ajax({
+        type: 'GET',
+        url: '/forecast',
+        error: function () {
+            $('#forecast').html('ERROR');
+        },
+        success: function (data, textStatus, xhr) {
+            if (xhr.status === 200) {            	
+            	for (city in data) {
+            		data[city].filters = [];
+            		$.ajax({
+                        type: 'GET',
+                        url: '/filters?field=fk_forecast&value=' + data[city].id,
+                        error: function () {
+                        	alert("No se pudo traer los filtros para "+ data[city].city);
+                        },
+                        success: function (filterdata, textStatus, xhr) {
+                        	data[city].filters.push(filterdata);     
+                        	                        	
+                        },
+                        complete: function(){
+                        	 $("#cityData").empty();
+		                    $("#cityData").append($('<option>', {
+		                        value: data[city].id,
+		                        text: data[city].city
+		// completeFilters();
+		                    }));
+	                        $('#response').text(JSON.stringify(data, null, 2));
+		                    $("#forecast").text("Received");
+                        }
+            		});
+//                    
+                }
+                
+            } else {
+                $('#forecast').text('Nothing Here');
+            }
+// completeFilters();
+        }
+
+    });
+
+}
+// function completeFilters(){
+// console.log(JSON.parse($('#response').text()).find($("#cityData").val()));
+// }

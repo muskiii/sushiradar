@@ -1,11 +1,16 @@
 package org.fabiano.sushiradar.api.service;
 
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.fabiano.sushiradar.api.config.SRConfiguration;
 import org.fabiano.sushiradar.api.dao.DAO;
 import org.fabiano.sushiradar.api.factory.ForecastFilterFactory;
 import org.fabiano.sushiradar.api.factory.PersistStrategyFactory;
+import org.fabiano.sushiradar.api.model.Forecast;
 import org.fabiano.sushiradar.api.model.filter.ForecastFilter;
 import org.fabiano.sushiradar.api.model.filter.PrecipHumidityFilter;
 import org.fabiano.sushiradar.api.model.filter.TempFilter;
@@ -21,9 +26,10 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 			.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
 	DAO<WindFilter> windDao = new DAO<WindFilter>(new PersistStrategyFactory<WindFilter>(WindFilter.class)
 			.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
-	DAO<PrecipHumidityFilter> PreHumDao = new DAO<PrecipHumidityFilter>(new PersistStrategyFactory<PrecipHumidityFilter>(PrecipHumidityFilter.class)
-			.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
-	
+	DAO<PrecipHumidityFilter> PreHumDao = new DAO<PrecipHumidityFilter>(
+			new PersistStrategyFactory<PrecipHumidityFilter>(PrecipHumidityFilter.class)
+					.createStrategy(SRConfiguration.getConfiguration().get("database_provider")));
+
 	@Override
 	public ForecastFilter fromJson(String json) {
 		JsonObject response = new JsonParser().parse(json).getAsJsonObject();
@@ -46,7 +52,7 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 			windFilter.setWindDir(response.get("windDir").getAsString());
 			windFilter.setMaxWindKPH(response.get("maxWind").getAsFloat());
 			windFilter.setMinWindKPH(response.get("minWind").getAsFloat());
-			return windFilter;		
+			return windFilter;
 		}
 		if (f instanceof PrecipHumidityFilter) {
 			PrecipHumidityFilter precipHumidityFilter = (PrecipHumidityFilter) f;
@@ -55,30 +61,47 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 			precipHumidityFilter.setPrecipitation(response.get("rain").getAsBoolean());
 			precipHumidityFilter.setMaxHumidity(response.get("maxHum").getAsFloat());
 			precipHumidityFilter.setMinHumidity(response.get("minHum").getAsFloat());
-			return precipHumidityFilter;		
+			return precipHumidityFilter;
 		}
 		return null;
 	}
 
 	public String save(ForecastFilter f) {
 		try {
-		if (f instanceof TempFilter) {
-			TempFilter tempFilter = (TempFilter) f;			
-			tempDao.insert(tempFilter);			
-		}
-		if (f instanceof WindFilter) {
-			WindFilter windFilter = (WindFilter) f;			
-			windDao.insert(windFilter);			
-		}
-		if (f instanceof PrecipHumidityFilter) {
-			PrecipHumidityFilter precipHumidityFilter = (PrecipHumidityFilter) f;			
-			PreHumDao.insert(precipHumidityFilter);			
-		}
+			if (f instanceof TempFilter) {
+				TempFilter tempFilter = (TempFilter) f;
+				tempDao.insert(tempFilter);
+			}
+			if (f instanceof WindFilter) {
+				WindFilter windFilter = (WindFilter) f;
+				windDao.insert(windFilter);
+			}
+			if (f instanceof PrecipHumidityFilter) {
+				PrecipHumidityFilter precipHumidityFilter = (PrecipHumidityFilter) f;
+				PreHumDao.insert(precipHumidityFilter);
+			}
 		} catch (SQLException e) {
 			return "duplicate";
-		}	
+		}
 		return "Class error";
 
+	}
+
+	public List<ForecastFilter> getAll() {
+		Stream<ForecastFilter> combinedStream = Stream.of(windDao.findAll(),
+				tempDao.findAll(),
+				PreHumDao.findAll())
+				.flatMap(Collection::stream);
+		return combinedStream.collect(Collectors.toList());
+
+	}
+	
+	public List<ForecastFilter> getWhere(String field, String value){
+		Stream<ForecastFilter> combinedStream = Stream.of(windDao.findWhere(field, value),
+				tempDao.findWhere(field, value),
+				PreHumDao.findWhere(field, value))
+				.flatMap(Collection::stream);
+		return combinedStream.collect(Collectors.toList());
 	}
 
 	public void deleteALL() {

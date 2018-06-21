@@ -84,10 +84,7 @@ public class ForecastService implements JsonParseable<Forecast> {
 	}
 	
 	public List<Forecast> getAll(){
-		return dao.findAll();
-		
-		
-		
+		return dao.findAll();				
 	}
 	
 	public Forecast getById(String id) {

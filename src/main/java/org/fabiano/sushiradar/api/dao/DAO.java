@@ -28,10 +28,6 @@ import java.util.List;
 	public T findById(String id) {
 		return strategy.findById(id);
 	}
-
-	public T findByFkId(String fk_field, String id) {
-		return strategy.findByFkId(fk_field, id);
-	}
 	
 	public void deleteAll() {
 		strategy.deleteAll();

@@ -133,7 +133,7 @@ public final class SQLHelper<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> mapRersultSetToList(ResultSet rs, Class outputClass) {
-		List<T> outputList = null;
+		List<T> outputList = new ArrayList<T>();
 		try {
 			// make sure resultset is not null
 			if (rs != null) {
@@ -172,7 +172,7 @@ public final class SQLHelper<T> {
 					// throw some error
 				}
 			} else {
-				return null;
+				return outputList;
 			}
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();

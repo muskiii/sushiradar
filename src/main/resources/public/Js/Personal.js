@@ -103,16 +103,25 @@ $(document).ready(function () {
             },
             success: function (data, textStatus, xhr) {
                 if (xhr.status === 200) {
-                    $('#response').text(JSON.stringify(data, null, 2));
-                    $("#forecast").text("Received");
-
-                    for (city in data) {
+                	for (city in data) {
+                		$.ajax({
+                            type: 'GET',
+                            url: '/filters?field=fk_forecast&value=' + data[city].id,
+                            error: function () {
+                            	alert("No se pudo traer los filtros para "+ data[city].city);
+                            },
+                            success: function (filterdata, textStatus, xhr) {
+                            }
+                		});
+                		
                         $("#cityData").empty();
                         $("#cityData").append($('<option>', {
                             value: data[city].id,
                             text: data[city].city
                         }));
                     }
+                    $('#response').text(JSON.stringify(data, null, 2));
+                    $("#forecast").text("Received");
                 } else {
                     $('#forecast').text('Nothing Here');
                 }
@@ -147,34 +156,34 @@ $(document).ready(function () {
         if ($("#response").text() != "" && $("#forecast-data").text() != "ERROR") {
             var id = $("#cityData").val();
             var dataArray = [];
-            let tempData = {
-                id: id,
-                type: "temp",
-                minTempC: $("#minTemp").val(),
-                maxTempC: $("#maxTemp").val()
-            };
-            let humData = {
-                    id: id,
-                    type: "hum",
-                    rain: $("#rain").prop('checked'),
-                    minHum: $("#minHum").val(),
-                    maxHum: $("#maxHum").val()
-                };
-            let windData = {
-                    id: id,
-                    type: "wind",
-                    windDir: $("#windDir").val(),
-                    minWind: $("#minWind").val(),
-                    maxWind: $("#maxWind").val()
-                };
-
+            
             if ($("#tempCheck").prop('checked')) {
+            	let tempData = {
+                        id: id,
+                        type: "temp",
+                        minTempC: $("#minTemp").val(),
+                        maxTempC: $("#maxTemp").val()
+                    };
                 dataArray.push(tempData);
             }
             if ($("#rainCheck").prop('checked')) {
+            	let humData = {
+                        id: id,
+                        type: "hum",
+                        rain: $("#rain").prop('checked'),
+                        minHum: $("#minHum").val(),
+                        maxHum: $("#maxHum").val()
+                    };
                 dataArray.push(humData);
             }
             if ($("#windCheck").prop('checked')) {
+            	 let windData = {
+                         id: id,
+                         type: "wind",
+                         windDir: $("#windDir").val(),
+                         minWind: $("#minWind").val(),
+                         maxWind: $("#maxWind").val()
+                     };
                 dataArray.push(windData);
             }
 

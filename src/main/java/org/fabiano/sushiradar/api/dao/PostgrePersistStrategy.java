@@ -221,30 +221,6 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 		return entities;
 	}
 
-	public T findByFkId(String fk_field, String id) {
-		String selectTableSQL = "SELECT * from " + type.getSimpleName().toLowerCase() + " where " + fk_field + " = "
-				+ id;
-		Connection con = null;
-		T entities = null;
-		ResultSet rs = null;
-		try {
-			con = DatabaseConnection.getInstance().getConnection();
-			Statement statement = con.createStatement();
-			rs = statement.executeQuery(selectTableSQL);
-			entities = new SQLHelper<T>().mapRersultSetToObject(rs, type);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return entities;
-	}
-
 	public void deleteAll() {
 
 		Connection con = null;		
@@ -298,7 +274,7 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 			rs = statement.executeQuery(whereStatement);
 			entities = new SQLHelper<T>().mapRersultSetToList(rs, type);
 
-			if (entities != null) {
+			if (entities != null && !entities.isEmpty()) {
 				boolean hasRelations = Arrays.stream(entities.get(0).getClass().getDeclaredFields())
 						.anyMatch(f -> f.isAnnotationPresent(OneToNRealtion.class));
 				rs.close();

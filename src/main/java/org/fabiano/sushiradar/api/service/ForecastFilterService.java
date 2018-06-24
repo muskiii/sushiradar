@@ -1,6 +1,7 @@
 package org.fabiano.sushiradar.api.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,6 +89,10 @@ public class ForecastFilterService implements JsonParseable<ForecastFilter> {
 	}
 
 	public List<ForecastFilter> getAll() {
+//		List<WindFilter> a = windDao.findAll();
+//		List<TempFilter> b =tempDao.findAll();
+//		List<PrecipHumidityFilter> c =PreHumDao.findAll();
+		
 		Stream<ForecastFilter> combinedStream = Stream.of(windDao.findAll(),
 				tempDao.findAll(),
 				PreHumDao.findAll())

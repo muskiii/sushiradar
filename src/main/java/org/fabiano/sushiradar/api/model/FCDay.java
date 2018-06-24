@@ -4,6 +4,7 @@ import org.fabiano.sushiradar.api.utils.Column;
 import org.fabiano.sushiradar.api.utils.Entity;
 import org.fabiano.sushiradar.api.utils.FK;
 import org.fabiano.sushiradar.api.utils.Id;
+import org.fabiano.sushiradar.api.utils.Ignore;
 
 @Entity
 public class FCDay implements ComponentRateable  {
@@ -75,6 +76,8 @@ public class FCDay implements ComponentRateable  {
 	@Column(name="iconURL")
     private String iconURL;
 
+	@Ignore()
+	private Float rate;
 
     public FCDay() {
     }
@@ -126,15 +129,7 @@ public class FCDay implements ComponentRateable  {
     public void setHour(int hour) {
         this.hour = hour;
     }
-
-    public String getmonthName() {
-        return monthName;
-    }
-
-    public void setmonthName(String monthName) {
-        this.monthName = monthName;
-    }
-
+    
     public String getWeekday() {
         return weekday;
     }
@@ -238,8 +233,32 @@ public class FCDay implements ComponentRateable  {
     public void setIconURL(String iconURL) {
         this.iconURL = iconURL;
     }
+    
+    public int getId() {
+		return id;
+	}
 
-    @Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMonthName() {
+		return monthName;
+	}
+
+	public void setMonthName(String monthName) {
+		this.monthName = monthName;
+	}
+
+	public Float getRate() {
+		return rate;
+	}
+
+	public void setRate(Float rate) {
+		this.rate = rate;
+	}
+
+	@Override
     public String toString() {
         return "FCDay{" +
                 "day=" + day +
@@ -263,9 +282,10 @@ public class FCDay implements ComponentRateable  {
                 ", iconURL='" + iconURL + '\'' +
                 '}';
     }
-
-    @Override
+	
+	    @Override
     public float calculateFishingRate() {
-        return 0;
+        return 5;
     }
+	
 }

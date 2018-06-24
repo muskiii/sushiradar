@@ -133,7 +133,7 @@ public final class SQLHelper<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> mapRersultSetToList(ResultSet rs, Class outputClass) {
-		List<T> outputList = new ArrayList<T>();
+		List<T> outputList = null;
 		try {
 			// make sure resultset is not null
 			if (rs != null) {

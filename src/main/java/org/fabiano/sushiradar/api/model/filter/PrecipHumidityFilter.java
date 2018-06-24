@@ -60,9 +60,19 @@ public class PrecipHumidityFilter extends ForecastFilter {
 	public void setMaxHumidity(float maxHumidity) {
 		this.maxHumidity = maxHumidity;
 	}
-
+	
+	@Override
+	public void setComponentRateable(ComponentRateable componentRateable) {
+		super.componentRateable = componentRateable;		
+	}
+	
 	@Override
     public float calculateFishingRate() {
-        return 0;
+		return super.componentRateable.calculateFishingRate() + 10;
     }
+
+	@Override
+	public ComponentRateable getComponentRateable() {
+		return super.componentRateable;
+	}
 }

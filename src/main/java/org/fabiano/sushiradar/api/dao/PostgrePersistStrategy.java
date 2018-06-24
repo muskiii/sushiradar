@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -183,6 +184,8 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 						childRS.close();
 					}
 				}
+			}else {
+				entities = new ArrayList<>();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -191,16 +194,16 @@ public class PostgrePersistStrategy<T> extends PersistStrategy<T> {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs !=  null && !rs.isClosed()) {
-					rs.close();
-				}
-				if(!con.isClosed()) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				if (rs !=  null && !rs.isClosed()) {
+//					rs.close();
+//				}
+//				if(!con.isClosed()) {
+//					con.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
 		}
 		return entities;
 	}

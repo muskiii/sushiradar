@@ -7,4 +7,6 @@ public abstract class Decorator implements ComponentRateable{
     public Decorator(ComponentRateable componentRateable){
 
     }
+    public abstract void setComponentRateable(ComponentRateable componentRateable);
+    public abstract ComponentRateable getComponentRateable();
 }

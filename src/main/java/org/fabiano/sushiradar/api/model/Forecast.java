@@ -105,6 +105,12 @@ public class Forecast {
 	public void setTarget(String target) {
 		this.target = target;
 	}
+	
+//	public void calculateRates() {
+//		for(FCDay day : this.extended) {
+//			day.ca
+//		}
+//	}
 
 	@Override
 	public String toString() {

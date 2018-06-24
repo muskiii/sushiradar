@@ -9,4 +9,8 @@ public abstract class ForecastFilter extends Decorator {
         super(componentRateable);
     }
     
+    public abstract int getForecastID();
+    
+
+    
 }

@@ -59,9 +59,18 @@ public class WindFilter extends ForecastFilter {
 	public void setWindDir(String windDir) {
 		this.windDir = windDir;
 	}
+	
+	@Override
+	public void setComponentRateable(ComponentRateable componentRateable) {
+		super.componentRateable = componentRateable;		
+	}
+	@Override
+	public ComponentRateable getComponentRateable() {
+		return super.componentRateable;
+	}
 
 	@Override
     public float calculateFishingRate() {
-        return 0;
+		return super.componentRateable.calculateFishingRate() + 10;
     }
 }
